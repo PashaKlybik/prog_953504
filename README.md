@@ -1,2 +1,2 @@
 # prog_953504
-прога иитп 2019-2020
+Lab here --> https://github.com/boss078/prog-labs/tree/master
