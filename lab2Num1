@@ -1,110 +1,372 @@
-﻿/*2.2 (6). Численно убедиться в справедливости равенства, для чего для
-заданного значения х вычислить его левую часть и разложение,
-стоящее в правой части. При каком n исследуемое выражение
-отличается от sin x менее, чем на заданную погрешность ε?
-Испытать разложение на сходимость при разных значениях х. 
-*/
+﻿/*2.1 (2). Рациональные числа. Разработать программу, меню которой
+позволяет выполнить следующие функции:
+1. Ввод (числитель и знаменатель) двух рациональных чисел.
+2. Вывод двух рациональных чисел (в форме: m n).
+3. Сложение чисел.
+4. Вычитание чисел.
+5. Умножение чисел.
+6. Деление чисел.
+7. Получение гармонического значения двух чисел.
+8. Информация о версии и авторе программы.
+9. Выход из программы.
+Справка: Гармоническое значение двух чисел получается путем
+получения обратных значений двух чисел, усреднения их и
+получения обратного значения результата. */
 
-#include <iostream>
-#include <math.h>
-#include <stdio.h>
 #include <conio.h>
-#include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <iostream>
+#include <Math.h>
 
-double funcFormula(int x, int n);
-void factorial(int num, int& factorialNumber);
+void info();
+void input(long int& a, long int& b);
+void output(long int a, long int b);
+void sum();
+void substraction();
+void multiply();
+void division();
+void harmonicValue();
 
 int main()
 {
-    int x, numberOfTimes; 
-    double e;
+    long int a = 0, b = 0;
 
-    //беск. цикл пока пользователь не введет нужное значение
+    //беск. цикл пока пользователь не введет правильное значение
     for (;;)
     {
-        printf("Enter x number: ");
+        char fuse;
 
-        std::cin >> x;
+        printf("Choose any function\n");
+        printf("1) Enter two numbers;\n");
+        printf("2) Output of two numbers;\n");
+        printf("3) Addition;\n");
+        printf("4) Substraction;\n");
+        printf("5) Multiplication;\n");
+        printf("6) Division;\n");
+        printf("7) Harmonic value;\n");
+        printf("8) Information about the version of program and its creator;\n");
+        printf("9) EXIT;\n");
 
-        if ((x <= 2147483647) & (x >= -2147483648))
+        std::cin >> fuse;
+        int trigger = 0;
+
+        if (isdigit(fuse) != 0)
         {
-            break;
+            trigger = 1;
         }
+
+        if (trigger == 1)
+        {
+            if ((fuse - '0') < 10)
+            {
+
+                if (fuse == '9')
+                {
+                    printf("User stopperd program\n");
+                    return 0;
+                }
+                else
+                {
+                    switch (fuse)
+                    {
+                    case '1': input(a, b); break;
+                    case '2': output(a, b); break;
+                    case '3': sum(); break;
+                    case '4': substraction(); break;
+                    case '5': multiply(); break;
+                    case '6': division(); break;
+                    case '7': harmonicValue(); break;
+                    case '8': info(); break;
+                    }
+
+                    printf("Done successfully\n");
+                }
+            }
+            else
+            {
+                printf("Too big number entered\n");
+            }
+        } 
         else
         {
-            printf("Incorrect number, enter again pls\n");
-        }
-    }
-
-    for (;;)
-    {
-        printf("Enter number of times: ");
-
-        std::cin >> numberOfTimes;
-
-        if ((numberOfTimes <= 2147483647) & (numberOfTimes >= -2147483648))
-        {
-            break;
-        }
-        else
-        {
-            printf("Incorrect number, enter again pls\n");
-        }
-    }
-
-    for (;;)
-    {
-        printf("Enter e number: ");
-
-        std::cin >> e;
-
-        if ((e <= 2147483647) & (e >= -2147483648))
-        {
-            break;
-        }
-        else
-        {
-            printf("Incorrect number, enter again pls\n");
-        }
-    }
-
-    for (int i = 1; i <= numberOfTimes; i++) 
-    {
-        if (sin(x) - (funcFormula(x, i)) < e)
-        {
-            printf("%f", sin(x));
-            printf("\n");
-            printf("%f", funcFormula(x, i));
-            printf("\n");
-            printf("The n is: \n");
-            printf("%d", i);
-            printf("\n");
+            printf("Incorrect value entered, pls try again");
         }
     }
 }
 
-//осн. функция
-double funcFormula(int x, int n)
+//инфа о создателе и проге
+void info()
 {
-    double result = 0;
-
-    for (int i = 1; i <= n; i++)
-    {
-        int factorialNum = 1;
-        factorial(2 * i - 1, factorialNum);
-        //std::cout << "Factorial: " << factorialNum << "\n";
-        result += pow(-1, i - 1) * pow(x, 2 * i - 1) / factorialNum;
-    }
-
-    return result;
+    printf("Program version: 1.0.0\nProgram author: Agibaylov Victor\n");
 }
 
-//отлельная фкнкция вычисления факториала
-void factorial(int num, int &factorialNumber)
+//ввод данных
+void input(long int &a, long int &b) 
 {
-    if (num >= 1)
+    long int aNum, bNum;
+
+    for (;;)
     {
-        factorialNumber *= num;
-        factorial(num - 1, factorialNumber);
+        printf("Enter a number: ");
+
+        std::cin >> aNum;
+
+        if ((aNum <= 2147483647) & (aNum >= -2147483648))
+        {
+             a = aNum;
+             break;
+        }
+        else
+        {
+             printf("Incorrect number, enter again pls\n");
+        }
     }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> bNum;
+
+            if ((bNum <= 2147483647) & (bNum >= -2147483648))
+            {
+                b = bNum;
+                break;
+            }
+            else
+            {
+                printf("Incorrect number, enter again pls\n");
+            }
+    }
+}
+
+void output(long int a, long int b)
+{
+    printf("The number is: \n");
+    printf("%d", a);
+    printf("\n");
+    printf("-");
+    printf("\n");
+    printf("%d", b);
+    printf("\n");
+}
+
+//вывод суммы
+void sum() 
+{
+    long int a, b, sum;
+
+    for (;;)
+    {
+        printf("Enter a number: ");
+
+        std::cin >> a;
+
+        if ((a <= 2147483647) & (a >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> b;
+
+
+        if ((b <= 2147483647) & (b >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    sum = a + b;
+
+    printf("%d", sum);
+    printf("\n");
+}
+
+//вывод рвзницы
+void substraction()
+{ 
+    long int a, b, sub;
+
+    for (;;)
+    {
+        printf("Enter a number: ");
+
+        std::cin >> a;
+
+        if ((a <= 2147483647) & (a >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> b;
+
+        if ((b <= 2147483647) & (b >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    sub = a - b;
+
+    printf("%d", sub);
+    printf("\n");
+}
+
+//умножение
+void multiply() 
+{
+    long int a, b, mult;
+
+    for (;;)
+    {
+        printf("Enter a number: ");
+
+        std::cin >> a;
+
+        if ((a <= 2147483647) & (a >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> b;
+
+        if ((b <= 2147483647) & (b >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    mult = a * b;
+
+    printf("%d", mult);
+    printf("\n");
+}
+
+//деление
+void division()
+{
+    double div;
+    long int a, b;
+
+    for (;;)
+    {
+        printf("Enter a number: ");
+
+        std::cin >> a;
+
+        if ((a <= 2147483647) & (a >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> b;
+
+        if ((b <= 2147483647) & (b >= -2147483648) & (b > 0))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    div = a * pow(b, -1);
+
+    printf("%f", div);
+    printf("\n");
+}
+
+//гармоническое число
+void harmonicValue()
+{
+    long int a, b;
+
+    for (;;)
+    {
+        printf("Enter a number: ");
+
+        std::cin >> a;
+
+        if ((a <= 2147483647) & (a >= -2147483648))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    for (;;)
+    {
+        printf("Enter b number: ");
+
+        std::cin >> b;
+
+        if ((b <= 2147483647) & (b >= -2147483648) & (b > 0))
+        {
+            break;
+        }
+        else
+        {
+            printf("Incorrect number, enter again pls\n");
+        }
+    }
+
+    double aChanged = pow(a, -1);
+    double bChanged = pow(b, -1);
+    double midVal = (aChanged + bChanged) / 2;
+    double harmonicValue = pow(midVal, -1);
+
+    printf("%f \n", harmonicValue);
 }
