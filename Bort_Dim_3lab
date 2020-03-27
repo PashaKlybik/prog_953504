@@ -1,0 +1,81 @@
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+int zam(int** a, int* s, int i, int j, int n, int z)
+{
+    int v;
+    if (s[i * n + j] == 55)
+    {
+        printf("Do you want to use new or old number?\nnew -1\nold -2\n");
+        scanf_s("%d", &v);
+        if (v == 2) return a[i][j];
+        else return z;
+    }
+    return z;
+}
+
+void out(int **a,  int*s, int m, int n)
+{
+    system("cls");
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (s[i * n + j] == 55) printf("%d ",a[i][j]);
+            else printf("* ");
+        }
+        printf("\n");
+    }
+  
+}
+
+void vv(int** a, int* s, int m, int n)
+{
+    int i, j;
+    int z;
+   while(true)
+   {
+       while (true)
+       {
+           printf("i: ");
+           scanf_s("%d", &i);
+           if (i <= m) break;
+           else printf("Try again ");
+       }
+
+       while (true)
+       {
+           printf("j: ");
+           scanf_s("%d",&j);
+           if (j <= n) break;
+           else printf("Try again ");
+       }
+
+       printf("a[%d][%d]:",i,j);
+       scanf_s("%d",&z);
+
+    if (i == 0 && j == 0 && z == 0) break;
+    i--;
+    j--;
+    a[i][j] = zam(a, s, i, j, n, z);
+    s[i * n + j] = 55;
+   }
+}
+
+int main()
+{
+    int m, n;
+    printf("M: ");
+    scanf_s("%d",&m);
+    printf("N: ");
+    scanf_s("%d",&n);
+    int** a =(int**) calloc(m,sizeof(int*));
+    for (int i = 0; i < m; i++)
+        a[i] = (int*) calloc (n,sizeof(int));
+    int* s =(int*) calloc(m*n,sizeof(int));
+    vv(a, s, m, n);
+    out(a, s, m, n);
+    return 0;
+}
