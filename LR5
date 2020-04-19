@@ -1,0 +1,249 @@
+#include <malloc.h>
+#include <string.h>
+#include <iostream>
+//Структура двунаправленного списка
+typedef struct item {
+    int digit;
+    struct item *next;
+    struct item *prev;
+} Item;
+//Структурамногоразрядного числа
+typedef struct mnumber {
+    Item *head;
+    Item *tail;
+    int n;
+} MNumber;
+MNumber CreateMNumber(char *initStr);
+void AddDigit(MNumber *number, int digit);
+void PrintMNumber(MNumber number);
+MNumber SumMNumber(MNumber n1, MNumber n2);
+MNumber DivMNumber(MNumber n1, MNumber n2);
+MNumber SubMNumber(MNumber n1, MNumber n2);
+MNumber MulMNumber(MNumber n1, MNumber n2);
+
+int main()
+{
+    MNumber a = CreateMNumber("0");
+    MNumber b = CreateMNumber("0");
+    MNumber c = SumMNumber(a,b);
+    MNumber g = SubMNumber(a,b);
+    MNumber z = MulMNumber(a,b);
+    try{
+        MNumber k = DivMNumber(a,b);
+        PrintMNumber(k);
+    }
+    catch(...)
+    {
+        std::cout<<"Error u can't div on 0!";
+    }
+
+    PrintMNumber(a);
+    PrintMNumber(b);
+    PrintMNumber(c);
+    PrintMNumber(g);
+    PrintMNumber(z);
+
+}
+MNumber CreateMNumber(char initStr[])
+{
+    MNumber number = {NULL, NULL, 0};
+    int n;
+    bool flag = false;
+    for (n = 0; n <  strlen(initStr); n++) {
+        if (initStr[n]=='-') {
+            flag = true;
+            continue;
+        }
+        if (flag) {
+            AddDigit(&number, -(initStr[n] - '0'));
+            flag=false;
+            continue;
+        }
+        AddDigit(&number, initStr[n] - '0');
+    }
+    return number;
+}
+// Добавление цифры в многоразрядное числло
+void AddDigit(MNumber *number, int digit)
+{
+    Item *p = (Item *)malloc(sizeof(Item));
+    p->digit = digit;
+    p->next = p->prev = nullptr;
+    if (number->head == nullptr)
+        number->head = number->tail = p;
+    else {
+        number->tail->next = p;
+        p->prev = number->tail;
+        number->tail = p;
+    }
+    number->n++;
+}
+MNumber SumMNumber(MNumber n1, MNumber n2) {
+    Item *p1 = n1.head, *p2 = n2.head;
+    MNumber sum ;
+    bool flag1 = false, flag2=false;
+
+        int num1 = 0, num2 = 0,cnt1=0,cnt2=0;
+        while (p1) {
+            if (p1->digit <0) {
+                flag1=true;
+                num1=-p1->digit;
+                p1 = p1->next;
+                continue;
+            }
+            num1 = num1 * 10 + p1->digit;
+            p1 = p1->next;
+            cnt1++;
+        }
+        while (p2) {
+            if (p2->digit <0) {
+                flag2=true;
+                num2=-p2->digit;
+                p2 = p2->next;
+                continue;
+            }
+            num2 = num2 * 10 + p2->digit;
+            p2 = p2->next;
+            cnt2++;
+        }
+        if(flag1)
+            num1= -num1;
+        if(flag2)
+            num2= -num2;
+
+    char *buffer = (char *) malloc((((cnt1+cnt2)/2) + 2) * sizeof(char));
+          char* number3 = itoa((num1+num2),buffer,10);
+            sum = CreateMNumber(number3);
+
+        return sum;
+    }
+MNumber SubMNumber(MNumber n1, MNumber n2)
+{ Item *p1 = n1.head, *p2 = n2.head;
+    MNumber sub ;
+    bool flag1 = false, flag2=false;
+
+    int num1 = 0, num2 = 0,cnt1=0,cnt2=0;
+    while (p1) {
+        if (p1->digit <0) {
+            flag1=true;
+            num1=-p1->digit;
+            p1 = p1->next;
+            continue;
+        }
+        num1 = num1 * 10 + p1->digit;
+        p1 = p1->next;
+        cnt1++;
+    }
+    while (p2) {
+        if (p2->digit <0) {
+            flag2=true;
+            num2=-p2->digit;
+            p2 = p2->next;
+            continue;
+        }
+        num2 = num2 * 10 + p2->digit;
+        p2 = p2->next;
+        cnt2++;
+    }
+    if(flag1)
+        num1= -num1;
+    if(flag2)
+        num2= -num2;
+
+    char *buffer = (char *) malloc((((cnt1+cnt2)/2) + 2) * sizeof(char));
+    char* number3 = itoa((num1-num2),buffer,10);
+    sub = CreateMNumber(number3);
+   // sub = CreateMNumber(num1 - num2);
+    return sub;
+}
+MNumber MulMNumber(MNumber n1, MNumber n2)
+{
+    Item *p1 = n1.head, *p2 = n2.head;
+    MNumber mul ;
+    bool flag1 = false, flag2=false;
+
+    int num1 = 0, num2 = 0,cnt1 = 0,cnt2 = 0;
+    while (p1) {
+        if (p1->digit <0) {
+            flag1=true;
+            num1=-p1->digit;
+            p1 = p1->next;
+            continue;
+        }
+        num1 = num1 * 10 + p1->digit;
+        p1 = p1->next;
+        cnt1++;
+    }
+    while (p2) {
+        if (p2->digit <0) {
+            flag2=true;
+            num2=-p2->digit;
+            p2 = p2->next;
+            continue;
+        }
+        num2 = num2 * 10 + p2->digit;
+        p2 = p2->next;
+        cnt2++;
+    }
+    if(flag1)
+        num1= -num1;
+    if(flag2)
+        num2= -num2;
+    char *buffer = (char *) malloc((((cnt1*cnt2)) + 2) * sizeof(char));
+    char* number3 = itoa((num1*num2),buffer,10);
+    mul = CreateMNumber(number3);
+//    mul = CreateMNumber(num1 * num2);
+
+    return mul;
+}
+MNumber DivMNumber(MNumber n1, MNumber n2)
+{
+    Item *p1 = n1.head, *p2 = n2.head;
+    MNumber div;
+    bool flag1 = false, flag2=false;
+
+    int num1 = 0, num2 = 0,cnt1 = 0,cnt2 = 0;
+    while (p1) {
+        if (p1->digit <0) {
+            flag1=true;
+            num1=-p1->digit;
+            p1 = p1->next;
+            continue;
+        }
+        num1 = num1 * 10 + p1->digit;
+        p1 = p1->next;
+        cnt1++;
+    }
+    while (p2) {
+        if (p2->digit <0) {
+            flag2=true;
+            num2=-p2->digit;
+            p2 = p2->next;
+            continue;
+        }
+        num2 = num2 * 10 + p2->digit;
+        p2 = p2->next;
+        cnt2++;
+    }
+    if(num1 == 0 || num2 == 0)
+        throw "errore";
+    if(flag1)
+        num1= -num1;
+    if(flag2)
+        num2= -num2;
+    char *buffer = (char *) malloc((((cnt1 >cnt2?cnt1 : cnt2)) + 1) * sizeof(char));
+    char* number3 = itoa((num1/num2),buffer,10);
+    div = CreateMNumber(number3);
+    return div;
+}
+
+// вывод многоразрядного числа
+void PrintMNumber(MNumber number)
+{
+    Item *p = number.head;
+    printf("\nNumber: ");
+    while (p) {
+        printf("%d", p->digit);
+        p = p->next;
+    }
+}
