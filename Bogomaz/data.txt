@@ -1,0 +1,6 @@
+A:\labs\C\article1.txt
+Read write to the file
+7,9
+A:\labs\C\article2.txt
+Service mobile application
+8,3
