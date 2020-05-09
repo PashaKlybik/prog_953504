@@ -1,0 +1,44 @@
+Residential complex
+------ Object Planning
+---------------- To create a plan of the object | 05.05.2020 - 10.05.2020 | 340,40
+---------------------------- Popov Alexadr
+---------------- Calculate the number of materials | 10.05.2020 - 18.05.2020 | 480,00
+---------------------------- Ivanov Dmitry
+---------------- Calculate financial costs | 18.05.2020 - 24.05.2020 | 300,90
+---------------------------- Denisov Mikhail
+------ Resource Collection
+---------------- Determine the number of labor | 24.05.2020 - 07.06.2020 | 320,00
+---------------------------- Krasnov Vadim
+---------------- Purchase materials | 07.06.2020 - 19.06.2020 | 1120000,00
+---------------------------- Chipushilov Alexander
+------ Start of construction
+---------------- Prepare a place to build | 19.06.2020 - 30.06.2020 | 2500,00
+---------------------------- Ivanov Dmitry
+---------------------------- Savok Andrey
+---------------- Deliver equipment to the facility | 30.06.2020 - 05.07.2020 | 2000,00
+---------------------------- Gerasimenko Pavel
+---------------------------- Mokritsky Egor
+------ Construction
+---------------- Preparation of the base of the complex | 05.07.2020 - 10.07.2020 | 200000,00
+---------------------------- Mokritsky Egor
+---------------- Construction of the complex | 10.07.2020 - 01.11.2020 | 320000,00
+---------------------------- 100-man team
+---------------- Decoration | 01.11.2020 - 01.01.2021 | 180000,00
+---------------------------- Denisov Mikhail
+------ Seasonal Break
+---------------- Search for tenants | 01.01.2021 - 20.01.2021 | 3400,00
+---------------------------- Valov Artem
+---------------- Search for investors for the next project | 20.01.2021 - 03.02.2021 | 6530,00
+---------------------------- Savok Alex
+------ Commissioning
+---------------- Object Verification | 03.02.2021 - 19.02.2021 | 2380,00
+---------------------------- Popov Alexander
+---------------- Correction of defects | 19.02.2021 - 28.02.2021 | 9830,00
+---------------------------- Zaitsev Vadim
+---------------- Delivery of the object to the uploader | 28.02.2021 - 16.03.2021 | 9730,00
+---------------------------- Belov Maxim
+------ Income Distribution
+---------------- Payment of payroll to employees | 16.03.2021 - 20.03.2021 | 673900,00
+---------------------------- Popov Alexander
+---------------- Recalculation of the budget of the company | 20.03.2021 - 30.03.2021 | 494300,00
+---------------------------- Belov Maxim
