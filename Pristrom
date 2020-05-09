@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct NODE
+{
+    char key;
+    long count;
+    struct NODE *left, *right;
+} NODE;
+
+void Insert(NODE **node, char x)
+{
+    if (*node == NULL)
+    {
+        *node = (NODE *)malloc(sizeof(NODE));
+        (*node)->key = x;
+        (*node)->count = 1;
+        (*node)->left = (*node)->right = NULL;
+    }
+    else
+    {
+        if ((*node)->key == x)
+            ((*node)->count)++;
+        else
+        if ((*node)->key > x)
+            Insert(&((*node)->left), x);
+        else Insert(&((*node)->right), x);
+    }
+}
+
+// вывод элементов дерева поиска на экран в порядке возрастания и количеством повторений
+void Display(NODE *node)
+{
+    if (node != NULL)
+    {
+        Display(node->left);
+        printf("%c : %d\n", node->key, node->count);
+        Display(node->right);
+    }
+}
+
+// количество вершин
+long Count(NODE *node)
+{
+    return node == NULL ? 0 : 1 + Count(node->left) + Count(node->right);
+}
+int list_count(NODE* node)
+{
+    if (!node)
+        return 0;
+    if (!node->left && !node->right)
+        return 1;
+    return list_count(node->left) + list_count(node->right);
+}
+// поиск вершины с определенным значением
+NODE *Search(NODE *node, char x)
+{
+    if (node == NULL)
+        return NULL;
+    else
+    if (node->key == x)
+        return node;
+    else
+    if (node->key > x)
+        return Search(node->left, x);
+    else
+        return Search(node->right, x);
+}
+
+int main()
+{
+    NODE *root = NULL;
+    char s[] = "lkm", *ps;
+    for(ps = s; *ps; ++ps)
+        Insert(&root, *ps);
+    Display(root);
+    printf("List's %d\t",list_count(root));
+    return 0;
+}
