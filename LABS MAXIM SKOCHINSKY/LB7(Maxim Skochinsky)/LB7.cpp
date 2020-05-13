@@ -1,9 +1,7 @@
 ﻿#include <stdio.h>
 #include <iostream>
 #include <conio.h>
-#include <fstream>
 #include <stdlib.h>
-#include <windows.h>
 #include <cstdlib>
 
 
