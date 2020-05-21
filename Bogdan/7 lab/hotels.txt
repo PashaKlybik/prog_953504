@@ -1,0 +1,7 @@
+Trivago | Mars | Gikalo | Perfect | 23 | 11000
+Trivago | Mars | Gikalo | Perfect | 23 | 11000
+Copter | minsk | Semashko | Cool | 223 | 228
+Copter | minsk | Semashko | Cool | 223 | 228
+KievStar | Kiev | Tarasa | Usuall | 14 | 1488
+KievStar | Kiev | Tarasa | Usuall | 14 | 1488
+Kolcha | Chacha | Chix | Good | 1 | 100
