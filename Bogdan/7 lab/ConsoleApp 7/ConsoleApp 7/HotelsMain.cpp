@@ -17,7 +17,7 @@ int main()
 	char choice = NULL;
 	char str[100];
 
-	const char* fileName = "D://Laby//C//C-Lab-Number7-Var9-master//hotels.txt";
+	const char* fileName = "C://Users//Lenovo//Documents//GitHub//prog_953504//Bogdan//7 lab";
 
 	int hotelsQuantity;
 	hotelsQuantity = FileStringCounter(fileName);
