@@ -1,0 +1,7 @@
+Trivago | Mars | Gikalo | Lux | 23 | 11000
+Trivago | Mars | Gikalo | Lux | 23 | 11000
+Copter | minsk | Semashko | Luxury | 223 | 228
+Copter | minsk | Semashko | Luxury | 223 | 228
+KievStar | Kiev | Tarasa | NotLux | 14 | 1488
+KievStar | Kiev | Tarasa | NotLux | 14 | 1488
+Kolcha | Chacha | Chix | Kruto | 1 | 100
