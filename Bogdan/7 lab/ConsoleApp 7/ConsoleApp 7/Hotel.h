@@ -13,7 +13,7 @@ public:
 	
 };
 
-void ExampleFilling(struct Hotel* hotelsContainer, int iterator, const char* hotelsInfo, int stringSize);
-void ArrayCreating(struct Hotel* hotelsContainer, int size, const char* fileName);
+void Fill(struct Hotel* hotels, int iterator, const char* hotelsInfo, int stringSize);
+void ArrCreate(struct Hotel* hotels, int size, const char* fileName);
 
-int FileStringCounter(const char* fileName);
+int CountStrings(const char* fileName);

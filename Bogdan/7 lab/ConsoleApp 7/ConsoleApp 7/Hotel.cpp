@@ -5,91 +5,91 @@
 
 #include "Hotel.h"
 
-void ExampleFilling(struct Hotel* hotelsContainer, int iterator, const char* hotelsInfo, int stringSize)
+void Fill(struct Hotel* hotels, int iterator, const char* hotelsInfo, int stringSize)
 {
-    int fieldNumber = 0;
+    int num = 0;
 
     for (int i = 0, j = 0; i < stringSize; i++, j++)
     {
-        if (fieldNumber == 0)
+        if (num == 0)
         {
             if (hotelsInfo[i + 1] != '|')
             {
-                hotelsContainer[iterator].Name[j] = hotelsInfo[i];
+                hotels[iterator].Name[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].Name[j] = '\0';
-                fieldNumber++;
+                hotels[iterator].Name[j] = '\0';
+                num++;
                 i += 2;
                 j = -1;
             }
         }
-        else if (fieldNumber == 1)
+        else if (num == 1)
         {
             if (hotelsInfo[i + 1] != '|')
             {
-                hotelsContainer[iterator].CityLocation[j] = hotelsInfo[i];
+                hotels[iterator].CityLocation[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].CityLocation[j] = '\0';
-                fieldNumber++;
+                hotels[iterator].CityLocation[j] = '\0';
+                num++;
                 i += 2;
                 j = -1;
             }
         }
-        else if (fieldNumber == 2)
+        else if (num == 2)
         {
             if (hotelsInfo[i + 1] != '|')
             {
-                hotelsContainer[iterator].Addrass[j] = hotelsInfo[i];
+                hotels[iterator].Addrass[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].Addrass[j] = '\0';
-                fieldNumber++;
+                hotels[iterator].Addrass[j] = '\0';
+                num++;
                 i += 2;
                 j = -1;
             }
         }
-        else if (fieldNumber == 3)
+        else if (num == 3)
         {
             if (hotelsInfo[i + 1] != '|')
             {
-                hotelsContainer[iterator].NumberClass[j] = hotelsInfo[i];
+                hotels[iterator].NumberClass[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].NumberClass[j] = '\0';
-                fieldNumber++;
+                hotels[iterator].NumberClass[j] = '\0';
+                num++;
                 i += 2;
                 j = -1;
             }
         }
-        else if (fieldNumber == 4)
+        else if (num == 4)
         {
             if (hotelsInfo[i + 1] != '|')
             {
-                hotelsContainer[iterator].FreePlacesQuantity[j] = hotelsInfo[i];
+                hotels[iterator].FreePlacesQuantity[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].FreePlacesQuantity[j] = '\0';
-                fieldNumber++;
+                hotels[iterator].FreePlacesQuantity[j] = '\0';
+                num++;
                 i += 2;
                 j = -1;
             }
         }
-        else if (fieldNumber == 5)
+        else if (num == 5)
         {
             if (hotelsInfo[i + 1] != '\n')
             {
-                hotelsContainer[iterator].NumberCost[j] = hotelsInfo[i];
+                hotels[iterator].NumberCost[j] = hotelsInfo[i];
             }
             else
             {
-                hotelsContainer[iterator].NumberCost[j] = '\0';
+                hotels[iterator].NumberCost[j] = '\0';
 
                 return;
             }
@@ -97,56 +97,52 @@ void ExampleFilling(struct Hotel* hotelsContainer, int iterator, const char* hot
     }
 }
 
-int FileStringCounter(const char* fileName)
+int CountStrings(const char* fileName)
 {
-    FILE* dataBaseFile;
+    FILE* dataBaSs;
 
     int counter = 0;
 
-    char characterIdentify[100];
+    char charID[100];
 
     errno_t fileOpenError;
-    fileOpenError = fopen_s(&dataBaseFile, fileName, "r");
+    fileOpenError = fopen_s(&dataBaSs, fileName, "r");
 
     if (fileOpenError != 0)
     {
-        printf("================PROGRAM MESSAGE================\n");
-        printf("The file isn't opened yet!\n");
-        printf("================PROGRAM MESSAGE================\n");
+        printf("Не открыли пока что!\n");
+        printf("***-----------------------------------------***\n");
 
         return 0;
     }
     else
     {
-        printf("================PROGRAM MESSAGE================\n");
-        printf("Successful file opening!\n");
-        printf("================PROGRAM MESSAGE================\n");
+        printf("Открыли файлик!\n");
+        printf("***-----------------------------------------***\n");
     }
 
-    printf("================PROGRAM MESSAGE================\n");
-    printf("String counting process is started!\n");
-    printf("================PROGRAM MESSAGE================\n");
+    printf("начинаем подсчёт строк!\n");
+    printf("***-----------------------------------------***\n");
 
-    while (!feof(dataBaseFile))
+    while (!feof(dataBaSs))
     {
-        if (fgets(characterIdentify, 100, dataBaseFile))
+        if (fgets(charID, 100, dataBaSs))
         {
             counter++;
         }
     }
 
-    printf("================PROGRAM MESSAGE================\n");
-    printf("String counting process is ended!\n");
-    printf("================PROGRAM MESSAGE================\n");
+    printf("Подсчёт строк завершён!\n");
+    printf("***-----------------------------------------***\n");
 
-    fclose(dataBaseFile);
+    fclose(dataBaSs);
 
     return counter;
 }
 
-void ArrayCreating(struct Hotel* hotelsContainer, int size, const char* fileName)
+void ArrCreate(struct Hotel* hotels, int size, const char* fileName)
 {
-    FILE* dataBaseFile;
+    FILE* dataBaSs;
 
     char hotelInfoString[50];
 
@@ -155,34 +151,31 @@ void ArrayCreating(struct Hotel* hotelsContainer, int size, const char* fileName
     stringArraySize = sizeof(hotelInfoString) / sizeof(hotelInfoString[0]);
 
     errno_t fileOpenError;
-    fileOpenError = fopen_s(&dataBaseFile, fileName, "r");
+    fileOpenError = fopen_s(&dataBaSs, fileName, "r");
 
     if (fileOpenError != 0)
     {
-        printf("================PROGRAM MESSAGE================\n");
-        printf("The file isn't opened yet!\n");
-        printf("================PROGRAM MESSAGE================\n");
-
+        printf("Не открылся парень нам пока что!\n");
+        printf("***-----------------------------------------***\n");
         return;
     }
     else
     {
-        printf("================PROGRAM MESSAGE================\n");
-        printf("Successful file opening!\n");
-        printf("================PROGRAM MESSAGE================\n");
+        printf("Успешное открытие!\n");
+        printf("***-----------------------------------------***\n");
     }
 
-    while (!feof(dataBaseFile) && arrayIterator < size)
+    while (!feof(dataBaSs) && arrayIterator < size)
     {
-        if (fgets(hotelInfoString, stringArraySize, dataBaseFile))
+        if (fgets(hotelInfoString, stringArraySize, dataBaSs))
         {
-            ExampleFilling(hotelsContainer, arrayIterator, hotelInfoString, stringArraySize);
+            Fill(hotels, arrayIterator, hotelInfoString, stringArraySize);
 
             arrayIterator++;
         }
     }
 
-    fclose(dataBaseFile);
+    fclose(dataBaSs);
 
     return;
 }

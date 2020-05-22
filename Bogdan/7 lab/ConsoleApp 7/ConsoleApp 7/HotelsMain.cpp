@@ -20,12 +20,12 @@ int main()
 	const char* fileName = "D://Laby//C//C-Lab-Number7-Var9-master//hotels.txt";
 
 	int hotelsQuantity;
-	hotelsQuantity = FileStringCounter(fileName);
+	hotelsQuantity = CountStrings(fileName);
 
 	struct Hotel* hotelsContainer;
 	hotelsContainer = (Hotel*)malloc(hotelsQuantity * sizeof(Hotel));
 
-	ArrayCreating(hotelsContainer, hotelsQuantity, fileName);
+	ArrCreate(hotelsContainer, hotelsQuantity, fileName);
 
 	printf("Welcome to HotelFinder2020\nBy pressing f key you can enter your query in order to find a really nice place to rest!");
 	printf("Press any key: ");
