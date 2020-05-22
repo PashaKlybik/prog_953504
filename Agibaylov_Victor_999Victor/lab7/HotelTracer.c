@@ -211,6 +211,10 @@ void ResultFinder(char* processedString)
             hotelsContainer[i].Name, hotelsContainer[i].NumberClass,
             hotelsContainer[i].NumberCost);
     }
+
+    free(hotelsContainer);
+
+    return;
 }
 
 //перевод из введенной пользователем строки в данные
