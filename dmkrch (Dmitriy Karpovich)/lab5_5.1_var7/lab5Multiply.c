@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <string.h>
 
-// Структура, описывающая элемент двунаправленного списка
+/* Struct that describes node of 2-linked list */
 typedef struct item
 {
 	int digit;
@@ -10,7 +10,7 @@ typedef struct item
 	struct item* prev;
 } Item;
 
-/* Структура, описывающая многоразрядное число */
+/* Struct that decsribes big number */
 typedef struct mnumber
 {
 	Item* head;
@@ -39,7 +39,7 @@ void main(void)
 	PrintMNumber(a);
 }
 
-/* Создает многоразрядное число из цифр строки */
+/* Creates big number string */
 MNumber CreateMNumber(const char initStr[])
 {
 	MNumber number = { NULL, NULL, 0 };
@@ -51,7 +51,7 @@ MNumber CreateMNumber(const char initStr[])
 }
 
 
-/* Добавляет цифру в многоразрядное число */
+/* Adds digit to number */
 void AddDigit(MNumber* number, int digit)
 {
 	Item* p = (Item*)malloc(sizeof(Item));
@@ -105,7 +105,7 @@ void PowerMNumber(MNumber& n1, int pow)
 }
 
 
-/* Выводит многоразрядное число на экран */
+/* Printfs big number on the console */
 void PrintMNumber(MNumber number)
 {
 	Item* p = number.head;
