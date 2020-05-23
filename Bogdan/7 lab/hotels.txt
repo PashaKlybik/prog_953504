@@ -1,0 +1,7 @@
+Luxotels | MilkiWay | Gikala | Perfect | 23 | 110
+Luxotels | MilkiWay | Gikala | Cool | 23 | 120
+OhMyGawdHotel | Minsk | Kolasa | Usuall | 223 | 228
+OhMyGawdHotel | Minsk | Kolasa | Cool | 223 | 228
+BestYouCanGet | Spb | Podgornaya | Usuall | 18 | 18
+BestYouCanGet | Spb | Podgornnaya | Usuall | 14 | 88
+MyHotel | MOGILEW | Mira | Perfect | 1 | 10
