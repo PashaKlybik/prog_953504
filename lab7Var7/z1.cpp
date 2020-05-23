@@ -4,12 +4,9 @@
 //Поиск нужных людей по интересам, местонахождению, образованию или работе. 
 //Возможность просмотра кругов общения, т.е. « путешествия» по социальной сети. 
 #include <stdio.h>
-#include <string.h>
 #include <Windows.h>
 #include <time.h>
 
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable : 4996)
 
 char name[6][20] = { "Ilya","Roma","Dima","Evgen","Danik","Sasha" };
 char surname[6][20] = { "Krivetskiy","Bortnovskiy","Semenuk","Kreidich","Kamornik","Kochurko" };
@@ -34,23 +31,38 @@ typedef struct Person
 	char* education = nullptr;
 	char* work = nullptr;
 	char* interests = nullptr;
-	int countoffriends = 0;
-
+	int SkolkoFriends = 0;
 	Person* friends = nullptr;
+
 }Person;
 
-Person PersonCreater(char* name, char* surname, char* patr, char* contacts, char* town, char* education, char* work, char* interests)
+Person PersonCreater(char* name, char* surname, char* patr, char* contacts, char* work, char* education, char* city, char* interests)
 {
 	Person Person;
 	Person.name = name;
+	Person.surname = surname;
+	Person.patr = patr;
 	Person.contacts = contacts;
 	Person.education = education;
 	Person.interests = interests;
 	Person.patr = patr;
-	Person.surname = surname;
-	Person.city = town;
+	Person.city = city;
 	Person.work = work;
 	return Person;
+}
+
+void ShowPerson(Person chelovek)
+{
+	printf("---\n");
+	printf("Имя - %s\n", chelovek.name);
+	printf("Фамилия - %s\n", chelovek.surname);
+	printf("Отчество - %s\n", chelovek.patr);
+	printf("Город - %s\n", chelovek.city);
+	printf("Работа - %s\n", chelovek.work);
+	printf("Контактные данные - %s\n", chelovek.contacts);
+	printf("Образование- %s\n", chelovek.education);
+	printf("Интересы - %s\n", chelovek.interests);
+	printf("---\n");
 }
 
 Person AddPerson()
@@ -59,112 +71,89 @@ Person AddPerson()
 	char* surname = (char*)malloc(sizeof(char*) * 20);
 	char* patr = (char*)malloc(sizeof(char*) * 20);
 	char* contacts = (char*)malloc(sizeof(char*) * 20);
-	char* town = (char*)malloc(sizeof(char*) * 20);
+	char* city = (char*)malloc(sizeof(char*) * 20);
 	char* education = (char*)malloc(sizeof(char*) * 20);
 	char* work = (char*)malloc(sizeof(char*) * 20);
 	char* interests = (char*)malloc(sizeof(char*) * 20);
 	rewind(stdin);
-	puts("Введите Фамилию человека");
+
+	puts("Фамилия:");
 	scanf("%[^\n]s", surname);
 	rewind(stdin);
-	puts("Введите Имя человека");
+	puts("Имя:");
 	scanf("%[^\n]s", name);
 	rewind(stdin);
-	puts("Введите Отчество человека");
+	puts("Отчество:");
 	scanf("%[^\n]s", patr);
 	rewind(stdin);
-	puts("Введите контактные данные человека");
+	puts("Контактные данные:");
 	scanf("%[^\n]s", contacts);
 	rewind(stdin);
-	puts("Введите Образование человека");
+	puts("Образование:");
 	scanf("%[^\n]s", education);
 	rewind(stdin);
-	puts("Введите работу человека");
+	puts("Профессия:");
 	scanf("%[^\n]s", work);
 	rewind(stdin);
-	puts("Введите интересы человека");
+	puts("Хобби:");
 	scanf("%[^\n]s", interests);
 	rewind(stdin);
-	puts("Введите город человека");
+	puts("Город:");
+	scanf("%[^\n]s", city);
 
-	scanf("%[^\n]s", town);
+	Person chelovek = PersonCreater(name, surname, patr, contacts, city, education, work, interests);
 
-	Person man = PersonCreater(name, surname, patr, contacts, town, education, work, interests);
+	free(name);
+	free(surname);
+	free(patr);
+	free(contacts);
+	free(city);
+	free(education);
+	free(work);
+	free(interests);
 
-	//free(name);
-	//free(surname);
-	//free(patr);
-	//free(contacts);
-	//free(town);
-	//free(education);
-	//free(work);
-	//free(interests);
-	return man;
+	return chelovek;
 }
 
-void* newPamyat(void* source,  size_t _Count,  size_t _Size)
+void* newPamyat(void* z, int c, int size)
 {
-	void* temp = source;
-	source = calloc(_Count, sizeof(_Size));
-	source = temp;
-	return source;
+	void* NewPerem = z;
+	z = calloc(c, sizeof(size));
+	z = NewPerem;
+	return z;
 }
 
-void AddNewPerson(Person* man, int count)
+void AddNewPerson(Person* chelovek, int count)
 {
-	//добавить нового человека
-	man = (Person*)newPamyat((void*)man, count, sizeof(Person));
-	man[count - 1] = AddPerson();
+	chelovek = (Person*)newPamyat((void*)chelovek, count, sizeof(Person));
+	chelovek[count - 1] = AddPerson();
 }
 
-void ShowPerson(Person man)
-{
-	printf("----------------------------------\n");
-	printf("Имя - %s\n", man.name);
-	printf("Фамилия - %s\n", man.surname);
-	printf("Отчество - %s\n", man.patr);
-	printf("Город - %s\n", man.city);
-	printf("Работа - %s\n", man.work);
-	printf("Контактные данные - %s\n", man.contacts);
-	printf("Образование- %s\n", man.education);
-	printf("Интересы - %s\n", man.interests);
-	printf("---------------------------------------------------------------------\n");
-	
-	for (int i = 0; i < man.countoffriends; i++)
-	{
-		printf("\t %d друг\tИмя - %s\tФамилия - %s\n", i + 1, man.friends[i].name, man.friends[i].surname);
-		printf("---------------------------------------------------------------------\n");
-	}
-}
-
-void ShowFrends(Person* man, int length)
+void ShowFriends(Person* chelovek, int length)
 {
 	for (int x = 0; x < length; x++)
 	{
-		printf("Друзья %d человека\n", x + 1);
-		printf("---------------------------------------------------------------------\n");
-		if (man[x].countoffriends == 0)
+		printf("Друзья %d человека\n---\n", x + 1);
+		if (chelovek[x].SkolkoFriends == 0)
 		{
-			printf("Нет друзей у  %d человека\n", x + 1);
+			printf("Одиночество-скука");
 		}
 		else
 		{
-			for (int i = 0; i < man[x].countoffriends; i++)
+			for (int i = 0; i < chelovek[x].SkolkoFriends; i++)
 			{
-				printf("\t %d друг \t Имя - %s \t Фамилия - %s\n", i + 1, man[x].friends[i].name, man[x].friends[i].surname);
-				printf("---------------------------------------------------------------------\n");
+				printf("\t %d друг \t Имя - %s \t Фамилия - %s\n", i + 1, chelovek[x].friends[i].name, chelovek[x].friends[i].surname);
+				printf("---\n");
 			}
 		}
 	}
 }
 
-void ShowAllPeople(int peopleCount, Person* people)
+void ShowAllPeople(int vsego, Person* people)
 {
-	for (int i = 0; i < peopleCount; i++)
+	for (int i = 0; i < vsego; i++)
 	{
-
 		printf("%d-й человек:\n", i + 1);
-
 		ShowPerson(people[i]);
 	}
 }
@@ -176,10 +165,10 @@ void ShowPeacePeople(Person man)
 Имя:%s\t\
 \tФамилия:%s\t\
 \tОтчество:%s\t\n", man.name, man.surname, man.patr);
-	
+
 }
 
-void ShowAllPeacePeople(Person* people, int count)
+void PokazhFrVse(Person* people, int count)
 {
 	for (int i = 0; i < count; i++)
 	{
@@ -209,20 +198,20 @@ Person* PersonLibrary(int count)
 {
 	srand(time(NULL));
 	Person* temp = (Person*)malloc(sizeof(Person) * count);;
-	
+
 	for (int i = 0; i < count; i++)
 	{
 		temp[i] = PersonCreater((char*)name[rand() % 6], (char*)surname[rand() % 6], (char*)patr[rand() % 6],
 			(char*)contacts[rand() % 6], (char*)town[rand() % 6],
 			(char*)education[rand() % 6], (char*)work[rand() % 6], (char*)interests[rand() % 6]);
 	}
-	
+
 	return temp;
 }
 
 void addFrends(Person* people, int count)
 {
-	ShowAllPeacePeople(people, count);
+	PokazhFrVse(people, count);
 	int index = 0;
 	while (index<1 || index>count + 1)
 	{
@@ -234,37 +223,37 @@ void addFrends(Person* people, int count)
 	while (number<1 || number>count + 1)
 	{
 		puts("Выберите человека для добавления в друзья");
-		ShowAllPeacePeople(people, count);
+		PokazhFrVse(people, count);
 		scanf("%d", &number);
 	}
 	number--;
-	int last = people[index].countoffriends;
-	if (people[index].countoffriends == 0)
+	int last = people[index].SkolkoFriends;
+	if (people[index].SkolkoFriends == 0)
 	{
 		people[index].friends = (Person*)malloc(1 * sizeof(Person));
-		people[index].countoffriends++;
+		people[index].SkolkoFriends++;
 	}
 	else
 	{
-		people[index].countoffriends++;
-		people[index].friends = (Person*)newPamyat((void*)people[index].friends, people[index].countoffriends, sizeof(Person));
+		people[index].SkolkoFriends++;
+		people[index].friends = (Person*)newPamyat((void*)people[index].friends, people[index].SkolkoFriends, sizeof(Person));
 	}
-	int x = (people[number].countoffriends);
-	if (people[number].countoffriends == 0)
+	int x = (people[number].SkolkoFriends);
+	if (people[number].SkolkoFriends == 0)
 	{
 		people[number].friends = (Person*)malloc(1 * sizeof(Person));
-		people[number].countoffriends++;
+		people[number].SkolkoFriends++;
 	}
 	else
 	{
-		people[number].countoffriends++;
-		people[number].friends = (Person*)newPamyat((void*)people[number].friends, people[number].countoffriends, sizeof(Person));
+		people[number].SkolkoFriends++;
+		people[number].friends = (Person*)newPamyat((void*)people[number].friends, people[number].SkolkoFriends, sizeof(Person));
 
 	}
-	
+
 	if (index != number)
 	{
-		if (people[index].countoffriends - 1 == 0)
+		if (people[index].SkolkoFriends - 1 == 0)
 		{
 			if (PersonCompare(people[index], people[number]) == 0)
 			{
@@ -278,7 +267,7 @@ void addFrends(Person* people, int count)
 			}
 		}
 		else {
-			for (int i = 0; i < people[index].countoffriends; i++)
+			for (int i = 0; i < people[index].SkolkoFriends; i++)
 			{
 				if (PersonCompare(people[index].friends[i], people[number]) == 1)
 				{
@@ -301,7 +290,7 @@ void addFrends(Person* people, int count)
 
 void DeleteFriends(Person* people, int count)
 {
-	ShowAllPeacePeople(people, count);
+	PokazhFrVse(people, count);
 	int index = 0;
 	while (index<1 || index>count + 1)
 	{
@@ -310,29 +299,29 @@ void DeleteFriends(Person* people, int count)
 	}
 	index--;
 	int number = 0;
-	if (people[index].countoffriends == 0)
+	if (people[index].SkolkoFriends == 0)
 	{
 		puts("У него нет друзей");
 		return;
 	}
-	while (number<1 || number> people[index].countoffriends)
+	while (number<1 || number> people[index].SkolkoFriends)
 	{
 		puts("Выберите человека для удаления из друзей");
-		ShowAllPeacePeople(people[index].friends, people[index].countoffriends);
+		PokazhFrVse(people[index].friends, people[index].SkolkoFriends);
 		scanf("%d", &number);
 	}
-	for (int i = number; i < people[index].countoffriends; i++)
+	for (int i = number; i < people[index].SkolkoFriends; i++)
 	{
 		people[index].friends[i - 1] = people[index].friends[i];
 	}
-	people[index].countoffriends--;
-	people[index].friends = (Person*)newPamyat((void*)people[index].friends, people[index].countoffriends, sizeof(Person));
+	people[index].SkolkoFriends--;
+	people[index].friends = (Person*)newPamyat((void*)people[index].friends, people[index].SkolkoFriends, sizeof(Person));
 }
 
 int EditMenu()
 {
 	int point;
-	printf("Выберите пункт для редактирования\n\
+	printf("Что редактируем?\n\
 1 - Имя\n\
 2 - Фамилия\n\
 3 - Отчество\n\
@@ -352,31 +341,31 @@ Person ChangeInfo(Person man)
 	switch (EditMenu())
 	{
 	case 1:
-		printf("Введите новое Имя\n");
+		printf("Новое Имя\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.name = str;
 		break;
 	case 2:
-		printf("Введите новую Фамилию\n");
+		printf("Фамилию\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.surname = str;
 		break;
 	case 3:
-		printf("Введите новое Отчество\n");
+		printf("Новое Отчество\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.patr = str;
 		break;
 	case 4:
-		printf("Введите новые контактные данные\n");
+		printf("Новые контактные данные\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.contacts = str;
 		break;
 	case 5:
-		printf("Введите новый Город\n");
+		printf("Новый Город\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.city = str;
@@ -394,7 +383,7 @@ Person ChangeInfo(Person man)
 		man.work = str;
 		break;
 	case 8:
-		printf("Введите новыу интересы\n");
+		printf("Введите новый интерес\n");
 		rewind(stdin);
 		scanf("%[^\n]s", str);
 		man.interests = str;
@@ -646,7 +635,7 @@ void TypeOfSearch(Person* man, int length)
 
 void DeletePerson(Person* man, int length)
 {
-	ShowAllPeacePeople(man, length);
+	PokazhFrVse(man, length);
 	int index = 0;
 	while (index<1 || index>length + 1)
 	{
@@ -687,7 +676,7 @@ void ReadIsFaila(Person* man, int& count)
 		fgets(education, 20, file);
 		fgets(work, 20, file);
 		fgets(interests, 20, file);
-		
+
 		count++;
 		man = (Person*)newPamyat((void*)man, count, sizeof(Person));
 		printf("size is%d\n\n", _msize(man));
@@ -764,19 +753,19 @@ int main()
 			addFrends(people, countOfpeople);
 			break;
 		case 4:
-			ShowFrends(people, countOfpeople);
+			ShowFriends(people, countOfpeople);
 			break;
 		case 5:
 			while (index<1 || index>countOfpeople)
 			{
 				puts("Выберите человека");
-				ShowAllPeacePeople(people, countOfpeople);
+				PokazhFrVse(people, countOfpeople);
 				scanf("%d", &index);
 			}
 			index--;
 			people[index] = ChangeInfo(people[index]);
 			break;
-		case 6:			
+		case 6:
 			TypeOfSearch(people, countOfpeople);
 			break;
 		case 7:

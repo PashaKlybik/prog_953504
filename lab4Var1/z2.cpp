@@ -109,7 +109,9 @@ int main()
         {
             printf("%s\t%s\n", inv(p1), p1);
         }
+        free(p1);
     }
+    free(str);
 
     return 0;
 }

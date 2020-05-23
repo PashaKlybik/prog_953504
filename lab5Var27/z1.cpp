@@ -86,10 +86,11 @@ public:
 			char t = 0;
 			if (head)
 			{
-				dvusp* old_head = *head;
+				dvusp* old_head = (dvusp*)malloc(sizeof(dvusp));
+					old_head = *head;
 				t = (*head)->x;
 				*head = (*head)->next;
-				delete old_head;
+				free(old_head);
 			}
 		}
 		return;
@@ -156,6 +157,13 @@ int main()
 		printf("#%d ", i + 1);
 		pri(que[i]);
 	}
+
+	for (int i = 0; i < u; i++)
+	{
+		free(que[i]);
+	}
+	free(que);
+	free(head);
 
 	return 0;
 }

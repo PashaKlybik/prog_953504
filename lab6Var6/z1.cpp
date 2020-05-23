@@ -175,5 +175,10 @@ int main()
 		}
 		i++;
 	}
+	free(head);
+	free(root);
+	free(re);
+	free(curr);
+	free(ne);
 	return 0;
 }

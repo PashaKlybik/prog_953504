@@ -73,5 +73,9 @@ int main()
     
     out(d, k);//выводим их по возрастанию длины
 
+    for (int i = 0; i < k; i++)
+        free(d[i]);
+    free(d);
+
     return 0;
 }
