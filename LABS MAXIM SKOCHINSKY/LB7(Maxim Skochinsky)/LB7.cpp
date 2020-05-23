@@ -37,11 +37,6 @@ typedef struct Employers {
 	char comp[20] = "";
 	int age;
 	int count;
-	Employers() {
-		strcpy(name, "");
-		strcpy(comp, "");
-		age = 0;
-	}
 	Employers* prev, * next;
 	Employers* head;
 };
@@ -108,6 +103,7 @@ void addToArchive(Employers* emp) {
 		fprintf(p, "%s %s %d\n", tmp->name, tmp->comp, tmp->age);
 		tmp = tmp->next;
 	}
+	free(tmp);
 	fclose(p);
 }
 
@@ -142,6 +138,8 @@ Vacancies* addVacancy(Vacancies* vac, char comp[], char city[], char educ[], cha
 		tmp->next = NULL;
 		buf->next = tmp;
 		vac->count++;
+		free(buf);
+		free(tmp);
 	}
 	return vac;
 }
@@ -200,7 +198,7 @@ void showEmp(Employers* emp) {
 		tmp = tmp->next;
 	}
 	printf("\n\n");
-
+	free(tmp);
 }
 
 
@@ -306,6 +304,7 @@ AppList* registry(AppList* list, char name[], char date[], char educ[], char cit
 	tmp->next = NULL;
 	buf->next = tmp;
 	list->count++;
+	free(tmp);
 	return list;
 }
 
@@ -354,6 +353,7 @@ struct AppList* delApp(AppList* list, AppList* del) {
 			list->head->count = count;
 		}
 	}
+	free(tmp);
 	return list;
 }
 
@@ -371,6 +371,7 @@ Employers* searchForJob(AppList** app, Vacancies* vac, Employers** emp) {
 		}
 		tmp = tmp->next;
 	}
+	free(tmp);	
 	return *emp;
 }
 
@@ -465,6 +466,7 @@ void showVac(Vacancies* vac) {
 		tmp = tmp->next;
 		i++;
 	}
+	free(tmp);
 	cout << "\n\n";
 }
 
@@ -479,6 +481,7 @@ void updateAppInf(AppList* app) {
 		fprintf(list, "%s %s %s %s %s\n", tmp->name, tmp->date, tmp->educ, tmp->city, tmp->salary);
 		tmp = tmp->next;
 	}
+	free(tmp);
 	fclose(list);
 }
 
@@ -593,6 +596,7 @@ Employers* delAppDialog(Employers* list) {
 	}
 	Employers* buf = list;
 	tmp = deleteEmp(buf, tmp->name);
+	free(buf);
 	return tmp;
 }
 
@@ -609,5 +613,6 @@ void updateVacInf(Vacancies* vac) {
 		fprintf(list, "%s %s %s %s %d\n", tmp->comp, tmp->city, tmp->educ, tmp->spec, tmp->age);
 		tmp = tmp->next;
 	}
+	free(tmp);
 	fclose(list);
 }
