@@ -24,6 +24,7 @@ typedef struct item {
 
 void AddNode(char* data, int count, Item **node, int number);
 void PrintTree(Item *node);
+void DeleteTree(Item *node);
 
 int _tmain(int argc, _TCHAR* argv[]) {
 	char buffer[128];
@@ -52,9 +53,17 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		AddNode(buffer, m-1, &root, atoi(buffer));
 	}
 	PrintTree(root);
+	DeleteTree(root);
 	fclose(fp);
 	getch();
 	return 0;
+}
+void DeleteTree(Item *node) {
+	if(node!=NULL) {
+		DeleteTree(node->left);
+		DeleteTree(node->right);
+		free(node);
+	}
 }
 
 /* Добавить число в дерево */
