@@ -1,16 +1,3 @@
-/*Треугольник. Разработать программу, меню которой позволяет
-выполнить следующие функции:
-1. Ввод координат вершин треугольника.
-2. Определить вид треугольника (правильный, прямоугольный,
-равнобедренный, произвольного вида).
-3. Вывод периметра треугольника.
-4. Вывод площади треугольника.
-5. Вычислить и вывести радиусы вписанной и описанной вокруг
-треугольника окружностей.
-6. Информация о версии и авторе программы.
-7. Выход из программы.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,19 +21,19 @@ void Type (int AB, int BC, int AC)
 {
     if (AB == BC == AC)
     {
-        printf("correct.\n\n"); //правильный
+        printf("correct.\n\n"); //ГЇГ°Г ГўГЁГ«ГјГ­Г»Г©
     }
     else if ((AB == sqrt(BC*BC + AC*AC)) || (BC == sqrt(AB*AB + AC*AC)) || (AC == sqrt(BC*BC + AB*AB)))
     {
-        printf("rectangular.\n\n"); //прямоугольный
+        printf("rectangular.\n\n"); //ГЇГ°ГїГ¬Г®ГіГЈГ®Г«ГјГ­Г»Г©
     }
     else if ((AB == BC) || (BC == AC) || (AC == AB))
     {
-        printf("isosceles.\n\n"); //равнобедренный
+        printf("isosceles.\n\n"); //Г°Г ГўГ­Г®ГЎГҐГ¤Г°ГҐГ­Г­Г»Г©
     }
     else
     {
-        printf("any.\n\n"); //произвольный
+        printf("any.\n\n"); //ГЇГ°Г®ГЁГ§ГўГ®Г«ГјГ­Г»Г©
     }
 }
 
@@ -65,7 +52,6 @@ void Radius (int AB, int BC, int AC)
 
 {
     float p = (AB + BC + AC) / 2;
-    //вписанная окружность
     if ((((p - AB)*(p - BC)*(p - AC)) / p) < 0)
     {
         printf("Radius of the inscribed circle: can't calculate the radius.\n\n");
@@ -74,7 +60,6 @@ void Radius (int AB, int BC, int AC)
     {
         printf("Radius of the inscribed circle: %f \n\n", sqrt(((p-AB)*(p-BC)*(p-AC)) / p));
     }
-    //описанная окружность
     if (((4 * sqrt(p * (p - AB) * (p - BC) * (p - AC))) == 0) || ((p * (p - AB) * (p - BC) * (p - AC)) < 0))
     {
         printf("Radius of the circumscribed circle: can't calculate the radius.\n\n");
