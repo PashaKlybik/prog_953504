@@ -26,3 +26,6 @@ Tree* CreateTree();
 
 /* Функция добавления узла дерева в дерево */
 void PushTreeNode(TreeNode* root, int key);
+
+/* Функция удаления дерева */
+void DeleteTree(TreeNode* leaf);

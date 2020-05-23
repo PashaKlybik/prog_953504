@@ -280,6 +280,7 @@ int main()
 
 
 		case 7:
+			DeleteLibrary(cathLibrary);
 			exit(0);
 			break;
 		}

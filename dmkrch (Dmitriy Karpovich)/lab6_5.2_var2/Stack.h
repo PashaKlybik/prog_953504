@@ -23,3 +23,6 @@ Stack* CreateStack();
 
 /* Функция добавления дерева "tree" в стэк "treeStack" */
 void PushTree(Stack* treeStack, Tree* tree);
+
+/* Функция удаления стэка */
+void DeleteStack(Stack* stack);

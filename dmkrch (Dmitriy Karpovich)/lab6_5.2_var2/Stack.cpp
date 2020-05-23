@@ -53,3 +53,20 @@ void PushTree(Stack* treeStack, Tree* tree)
         }
     }
 }
+
+void DeleteStack(Stack* stack)
+{
+    StackNode* item = stack->head;
+    StackNode* next;
+
+    while (item->next != NULL)
+    {
+        next = item->next;
+
+        free(item);
+
+        item = next;
+    }
+
+    free(item);
+}

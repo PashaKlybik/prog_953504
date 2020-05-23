@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <string.h>
 
-/* Struct that describes node of 2-linked list */
+/* Структура, описывающая элемент двунаправленного списка */
 typedef struct item
 {
 	int digit;
@@ -10,7 +10,7 @@ typedef struct item
 	struct item* prev;
 } Item;
 
-/* Struct that decsribes big number */
+/* Структура, описывающая многоразрядное число */
 typedef struct mnumber
 {
 	Item* head;
@@ -18,7 +18,7 @@ typedef struct mnumber
 	int n;
 } MNumber;
 
-
+void DeleteNumber(MNumber* numb);
 MNumber CreateMNumber(const char* initStr);
 void AddDigit(MNumber* number, int digit);
 void PrintMNumber(MNumber number);
@@ -37,9 +37,29 @@ void main(void)
 
 	PowerMNumber(a, power);
 	PrintMNumber(a);
+
+	DeleteNumber(&a);
 }
 
-/* Creates big number string */
+/* Deletes number */
+void DeleteNumber(MNumber* numb)
+{
+	Item* item = numb->head;
+	Item* next;
+
+	while (item != numb->tail)
+	{
+		next = item->next;
+
+		free(item);
+
+		item = next;
+	}
+
+	free(item);
+}
+
+/* Создает многоразрядное число из цифр строки */
 MNumber CreateMNumber(const char initStr[])
 {
 	MNumber number = { NULL, NULL, 0 };
@@ -51,7 +71,7 @@ MNumber CreateMNumber(const char initStr[])
 }
 
 
-/* Adds digit to number */
+/* Добавляет цифру в многоразрядное число */
 void AddDigit(MNumber* number, int digit)
 {
 	Item* p = (Item*)malloc(sizeof(Item));
@@ -105,7 +125,7 @@ void PowerMNumber(MNumber& n1, int pow)
 }
 
 
-/* Printfs big number on the console */
+/* Выводит многоразрядное число на экран */
 void PrintMNumber(MNumber number)
 {
 	Item* p = number.head;

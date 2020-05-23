@@ -38,3 +38,20 @@ void PushNode(DoubleLinkedList* list, int* arr, int arrSize, int treeNumber)
     }
     list->size++;
 }
+
+void DeleteList(DoubleLinkedList* list)
+{
+    Node* item = list->head;
+    Node* next;
+
+    while (item != list->tail)
+    {
+        next = item->next;
+
+        free(item);
+
+        item = next;
+    }
+
+    free(item);
+}

@@ -55,3 +55,13 @@ void PushTreeNode(TreeNode* root, int key)
         }
     }
 }
+
+void DeleteTree(TreeNode* leaf)
+{
+    if (leaf != nullptr)
+    {
+        DeleteTree(leaf->left);
+        DeleteTree(leaf->right);
+        free(leaf);
+    }
+}

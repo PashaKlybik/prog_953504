@@ -90,4 +90,7 @@ int main()
     // Теперь в переменной treeStack сформированы деревья и можно вызвать 
     // функцию моего варианта для отображения наибольшего числа в каждом дереве
     ShowHighestKeyOfTrees(treeStack);
+
+    DeleteList(List);
+    DeleteStack(treeStack);
 }

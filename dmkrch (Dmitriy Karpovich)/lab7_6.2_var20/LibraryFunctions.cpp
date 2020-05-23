@@ -297,3 +297,24 @@ void LibReport(CathLibrary* lib)
 	printf("\nAmount of readers: %d", lib->readerList->size);
 	printf("\nTotal sum of books: %d $\n\n", sumBooks);
 }
+
+void DeleteLibrary(CathLibrary* lib)
+{
+	NodeBook* temp = lib->bookList->head;
+
+	for (int i = 0; i < lib->bookList->size; ++i)
+	{
+		free(temp);
+
+		temp = temp->next;
+	}
+
+	NodeReader* tempR = lib->readerList->head;
+
+	for (int i = 0; i < lib->readerList->size; ++i)
+	{
+		free(tempR);
+
+		tempR = tempR->next;
+	}
+}

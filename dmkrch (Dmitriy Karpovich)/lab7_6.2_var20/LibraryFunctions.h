@@ -24,3 +24,5 @@ bool ReaderExists(char* surname, int group, ListReader* listReader);
 bool BookExists(char* title, ListBook* listBook);
 
 void LibReport(CathLibrary* lib);
+
+void DeleteLibrary(CathLibrary* lib);

@@ -29,5 +29,7 @@ DoubleLinkedList* CreateDblLinkedList();
 /* Функция добавления узла в двусвязный список */
 void PushNode(DoubleLinkedList* list, int* arr, int arrSize, int treeNumber);
 
+/* Функция удаления списка */
+void DeleteList(DoubleLinkedList* list);
 
 #endif
