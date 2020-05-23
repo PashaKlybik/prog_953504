@@ -103,7 +103,12 @@ void addToArchive(Employers* emp) {
 		fprintf(p, "%s %s %d\n", tmp->name, tmp->comp, tmp->age);
 		tmp = tmp->next;
 	}
-	free(tmp);
+	Employers *buf;
+	while (tmp != NULL) {
+		buf = tmp;
+		tmp = tmp->next;
+		free(buf);
+	}
 	fclose(p);
 }
 
@@ -138,8 +143,20 @@ Vacancies* addVacancy(Vacancies* vac, char comp[], char city[], char educ[], cha
 		tmp->next = NULL;
 		buf->next = tmp;
 		vac->count++;
-		free(buf);
-		free(tmp);
+		
+		Vacancies * t;
+		while (tmp != NULL) {
+			t = tmp;
+			tmp = tmp->next;
+			free(t);
+		}
+
+		Vacancies * del;
+		while (buf != NULL) {
+			del = buf;
+			buf = buf->next;
+			free(del);
+		}
 	}
 	return vac;
 }
@@ -198,7 +215,12 @@ void showEmp(Employers* emp) {
 		tmp = tmp->next;
 	}
 	printf("\n\n");
-	free(tmp);
+	Employers* buf;
+	while (tmp != NULL) {
+		buf = tmp;
+		tmp = tmp->next;
+		free(buf);
+	}
 }
 
 
@@ -304,7 +326,20 @@ AppList* registry(AppList* list, char name[], char date[], char educ[], char cit
 	tmp->next = NULL;
 	buf->next = tmp;
 	list->count++;
-	free(tmp);
+    
+	AppList* t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
+	AppList* del;
+	while (buf != NULL) {
+		del = buf;
+		buf = buf->next;
+		free(del);
+	}
+
 	return list;
 }
 
@@ -353,7 +388,14 @@ struct AppList* delApp(AppList* list, AppList* del) {
 			list->head->count = count;
 		}
 	}
-	free(tmp);
+
+	AppList* t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
+
 	return list;
 }
 
@@ -371,7 +413,14 @@ Employers* searchForJob(AppList** app, Vacancies* vac, Employers** emp) {
 		}
 		tmp = tmp->next;
 	}
-	free(tmp);	
+
+	Vacancies * t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
+
 	return *emp;
 }
 
@@ -466,7 +515,12 @@ void showVac(Vacancies* vac) {
 		tmp = tmp->next;
 		i++;
 	}
-	free(tmp);
+	Vacancies* t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
 	cout << "\n\n";
 }
 
@@ -481,7 +535,12 @@ void updateAppInf(AppList* app) {
 		fprintf(list, "%s %s %s %s %s\n", tmp->name, tmp->date, tmp->educ, tmp->city, tmp->salary);
 		tmp = tmp->next;
 	}
-	free(tmp);
+	AppList* t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
 	fclose(list);
 }
 
@@ -596,7 +655,12 @@ Employers* delAppDialog(Employers* list) {
 	}
 	Employers* buf = list;
 	tmp = deleteEmp(buf, tmp->name);
-	free(buf);
+	Vacancies* t;
+	while (buf != NULL) {
+		t = buf;
+		buf = buf->next;
+		free(t);
+	}
 	return tmp;
 }
 
@@ -613,6 +677,11 @@ void updateVacInf(Vacancies* vac) {
 		fprintf(list, "%s %s %s %s %d\n", tmp->comp, tmp->city, tmp->educ, tmp->spec, tmp->age);
 		tmp = tmp->next;
 	}
-	free(tmp);
+	Vacancies* t;
+	while (tmp != NULL) {
+		t = tmp;
+		tmp = tmp->next;
+		free(t);
+	}
 	fclose(list);
 }
