@@ -1,0 +1,9 @@
+breakfast,_lunch,_dinner 11.07 1
+excursion_in_city 25.0 1
+shipping 0.0 1
+hotel_room 45.0 1
+horseback_ride_in_one_of_the_cities 32.47 0
+disco_in_one_of_the_cities 16.25 0
+set_of_souvenirs 5.0 0
+porter 64.99 0
+shopping 32.12 0

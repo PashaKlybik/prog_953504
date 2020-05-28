@@ -1,0 +1,17 @@
+Minsk 53.54 27.33
+Zaslavl 54.00 27.16
+Naroch 54.54 26.42
+Polotsk 55.30 28.48
+Braslav 55.38 27.02
+Smorgon 54.28 26.23
+Grodno 53.42 23.43
+Lida 53.54 25.18
+Slonim 53.50 25.18
+Nesvizh 53.13 26.40
+Mir 53.27 26.28
+Pinsk 52.06 26.06
+Brest 52.06 23.42
+Gomel 52.25 31.00
+Mogilev 53.54 30.18
+Vitebsk 55.12 30.06
+Orsha 54.30 30.24
