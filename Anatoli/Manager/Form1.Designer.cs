@@ -52,6 +52,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -78,7 +79,7 @@
             this.toolStripTextBox5 = new System.Windows.Forms.ToolStripTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.button1 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -169,6 +170,7 @@
             this.imageList1.Images.SetKeyName(7, "mp4.png");
             this.imageList1.Images.SetKeyName(8, "txt.png");
             this.imageList1.Images.SetKeyName(9, "back.png");
+            this.imageList1.Images.SetKeyName(10, "img_84110.png");
             // 
             // listView2
             // 
@@ -309,6 +311,18 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1394, 34);
             this.panel5.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::sCommander.Properties.Resources.kisspng_logo_refreshing_vector_5b5137a4b83043_4249974215320493167545;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Location = new System.Drawing.Point(4, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(50, 34);
+            this.button1.TabIndex = 0;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel6
             // 
@@ -526,17 +540,14 @@
             this.notifyIcon1.Text = "Развернуть";
             this.notifyIcon1.Visible = true;
             // 
-            // button1
+            // printDocument1
             // 
-            this.button1.BackgroundImage = global::sCommander.Properties.Resources.kisspng_logo_refreshing_vector_5b5137a4b83043_4249974215320493167545;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(4, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 34);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -563,8 +574,8 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "sCommander";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.tabControl1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -625,6 +636,7 @@
         public System.Windows.Forms.ListView listView1;
         public System.Windows.Forms.ListView listView2;
         public System.Windows.Forms.ImageList imageList1;
+        public System.Windows.Forms.Timer timer1;
     }
 }
 

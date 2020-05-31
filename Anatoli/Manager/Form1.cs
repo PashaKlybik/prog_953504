@@ -14,6 +14,9 @@ using System.Drawing.Text;
 using System.Net.Mail;
 using System.Net;
 using System.Threading;
+using System.Diagnostics.Eventing.Reader;
+using Ionic.Zip;
+using System.Drawing.Printing;
 
 namespace sCommander
 {
@@ -24,16 +27,17 @@ namespace sCommander
         protected string currentlySelectedItemName = "";
         protected string currentRoot = "";
         string oldPath = "", oldPathForCopy = "";
-     //   Class1 load = new Class1();
+        readonly Label labelTime = new Label();
+
+        private string stringToPrint;
+
         public Form1()
         {
             InitializeComponent();
            
-
             listView1.SmallImageList = imageList1;
             listView2.SmallImageList = imageList1;
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             driversDefinitionlv();
@@ -45,17 +49,26 @@ namespace sCommander
             this.panel1.BackColor = this.panel2.BackColor = Color.CornflowerBlue;
             //Добавляем событие для клика по иконке
             notifyIcon1.Click += notifyIcon1_Click;
+            //Время
+            labelTime.Location = new Point(920, 30);
+            labelTime.Size = new Size(120, 23);
+            labelTime.ForeColor = Color.DimGray;
+            labelTime.BackColor = Color.LightSteelBlue;
+            labelTime.Text = Convert.ToString(DateTime.Now);
+            this.Controls.Add(labelTime);
+            labelTime.BringToFront();
+
         }
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        //Закрытие формы
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Закрываем потоки
             System.Environment.Exit(1);
         }
-
         private void DriveButton_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
-
         public void loadFilesAndDirectories(ListView list, string path)
         {
             string tempFilePath = "";
@@ -68,7 +81,10 @@ namespace sCommander
                     tempFilePath = path + "/" + currentlySelectedItemName;
                     FileInfo fileDetails = new FileInfo(tempFilePath);
                     fileAttr = File.GetAttributes(tempFilePath);
-                    Process.Start(tempFilePath);                                //Open file
+                    //Открытие файлов 
+                    Process.Start(tempFilePath);
+                    //Окно не должно быть поверх открытого файла
+                    this.TopMost = false;
                 }
                 else
                 {
@@ -78,8 +94,10 @@ namespace sCommander
                 if((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
                     DirectoryInfo fileList = new DirectoryInfo(path);
-                    FileInfo[] files = fileList.GetFiles(); //Get all the files
-                    DirectoryInfo[] dirs = fileList.GetDirectories();//Get all the dirs
+                    //Получение всех файлов
+                    FileInfo[] files = fileList.GetFiles(); 
+                    //Получение всех директорий
+                    DirectoryInfo[] dirs = fileList.GetDirectories();
 
                     string fileExtension = "";
                     int index = 0;
@@ -94,7 +112,7 @@ namespace sCommander
                     {
                         if (!toolStripMenuItem2.Checked)
                         {
-                            //Do not show hidden files
+                            //Не показывать скрытые файлы
                             if ((dirs[i].Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             {
                                 continue;
@@ -123,6 +141,11 @@ namespace sCommander
                             continue;
                         } 
                         fileExtension = files[i].Extension.ToUpper();
+                        if(fileExtension == "")
+                        {
+                            files[i].Delete();
+                            continue;
+                        }
                         //Добавление иконок
                         switch (fileExtension)
                         {
@@ -145,6 +168,11 @@ namespace sCommander
                             case ".DOC":
                             case "DOCX":
                                 list.Items.Add(files[i].Name, 2);
+                                break;
+                            case ".ZIP":
+                            case ".RAR":
+                            case ".7ZIP":
+                                list.Items.Add(files[i].Name, 10);
                                 break;
                             case ".TXT":
                                 list.Items.Add(files[i].Name, 8);
@@ -312,17 +340,36 @@ namespace sCommander
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
             //   Получаем имя файла, по котором doubleClick 
-            currentlySelectedItemName = listView1.Items[listView1.SelectedIndices[0]].Text;          
-
-            FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
-            if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)                  // Проверяем, папка ли это
-            {                                                                                       //    если да, то указываем новый путь
-                isFile = false;                                                                     //   если нет, то открываем файл
-                filePath = filePath + "/" + currentlySelectedItemName;
-            }
-            else
+            currentlySelectedItemName = listView1.Items[listView1.SelectedIndices[0]].Text;
+            try
             {
-                isFile = true;
+                FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
+                if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)                  // Проверяем, папка ли это
+                {                                                                                       //    если да, то указываем новый путь
+                    isFile = false;                                                                     //   если нет, то открываем файл
+                    filePath = filePath + "/" + currentlySelectedItemName;
+                }
+                else
+                {
+                    isFile = true;
+                }
+            }
+            catch (FileNotFoundException exNotFound)
+            {
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                this.Refresh();
+                MessageBox.Show(
+                exNotFound.Message,
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
+                //Отображаем форму на переднем плане
+                this.TopMost = true;
+                loadFilesAndDirectories(listView1, filePath);
+                loadFilesAndDirectories(listView2, filePath2);
+                return;
             }
             //Откат назад 
             if (filePath != currentRoot && listView1.Items[listView1.SelectedIndices[0]].Text == "")
@@ -337,17 +384,36 @@ namespace sCommander
         private void listView2_DoubleClick(object sender, EventArgs e)
         {
             //   Получаем имя файла, по котором doubleClick 
-            currentlySelectedItemName = listView2.Items[listView2.SelectedIndices[0]].Text;           
-
-            FileAttributes fileAttr = File.GetAttributes(filePath2 + "/" + currentlySelectedItemName);
-            if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)              // Проверяем, папка ли это
-            {                                                                                   //    если да, то указываем новый путь
-                isFile = false;                                                                 //   если нет, то открываем файл
-                filePath2 = filePath2 + "/" + currentlySelectedItemName;
-            }
-            else
+            currentlySelectedItemName = listView2.Items[listView2.SelectedIndices[0]].Text;
+            try
             {
-                isFile = true;
+                FileAttributes fileAttr = File.GetAttributes(filePath2 + "/" + currentlySelectedItemName);
+                if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)              // Проверяем, папка ли это
+                {                                                                                   //    если да, то указываем новый путь
+                    isFile = false;                                                                 //   если нет, то открываем файл
+                    filePath2 = filePath2 + "/" + currentlySelectedItemName;
+                }
+                else
+                {
+                    isFile = true;
+                }
+            }
+            catch (FileNotFoundException exNotFound)
+            {
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                this.Refresh();
+                MessageBox.Show(
+                exNotFound.Message,
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
+                //Отображаем форму на переднем плане
+                this.TopMost = true;
+                loadFilesAndDirectories(listView1, filePath);
+                loadFilesAndDirectories(listView2, filePath2);
+                return;
             }
             if (filePath2 != currentRoot && listView2.Items[listView2.SelectedIndices[0]].Text == "")
             {
@@ -475,15 +541,40 @@ namespace sCommander
             FileInfo file = new FileInfo(filePath + "/" + tb.Text);
             if (!file.Exists)
             {
-                File.Create(filePath + "/" + tb.Text).Close();
-
+                try
+                {
+                    File.Create(filePath + "/" + tb.Text).Close();
+                }
+                catch(UnauthorizedAccessException)
+                {
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                    this.Refresh();
+                    MessageBox.Show(
+                    "Необходимо обладать правами администратора",
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                    //Отображаем форму на переднем плане
+                    this.TopMost = true;
+                    return;
+                }
+                catch(Exception)
+                {               
+                    //Отображаем форму на переднем плане
+                    this.TopMost = true;
+                    return;
+                }
                 loadFilesAndDirectories(listView1, filePath);
                 loadFilesAndDirectories(listView2, filePath2);
             }
             if (countItems == listView1.Items.Count && onceChecked == false)
             {
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                this.Refresh();
                 MessageBox.Show(
-                "Такое уже было...",
+                "Недопустимое имя файла",
                 "Сообщение",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information,
@@ -571,7 +662,7 @@ namespace sCommander
                 if (countItems == listView1.Items.Count && disposeTextBox == false)
                 {
                     disposeTextBox = true;
-                    panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                     DialogResult result = MessageBox.Show(
                     "А ты оригинальный! Может придумаешь что-нибудь поинтереснее?",
                     "Сообщение",
@@ -595,7 +686,7 @@ namespace sCommander
                 if (countItems == listView2.Items.Count && disposeTextBox == false)
                 {
                     disposeTextBox = true;
-                    panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                    // this.Refresh();
                     MessageBox.Show(
                     "А ты оригинальный! Может придумаешь что-нибудь поинтереснее?",
@@ -627,24 +718,59 @@ namespace sCommander
         }
       
 //---------------------------------------------------------------------------------------------------
-//                                              УДАЛЕНИЕ, КОПИРОВАНИЕ, ОТПРАВКА
+//                                              УДАЛЕНИЕ, КОПИРОВАНИЕ, ОТПРАВКА, АРХИВИРОВАНИЕ
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
             listView1.BackColor = Color.Azure;
             listView2.BackColor = Color.White;
             if (e.Button == MouseButtons.Right && listView1.SelectedItems.Count != 0)
             {
-                currentlySelectedItemName = listView1.Items[listView1.SelectedIndices[0]].Text;
-                FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
-                if (!((fileAttr & FileAttributes.Directory) == FileAttributes.Directory))
+                //Если клик по кнопке "назад"
+                if(listView1.Items[listView1.SelectedIndices[0]].Text == "")
                 {
-                    ToolStripMenuItem replaceMenuItem = new ToolStripMenuItem("Копировать");
-                    contextMenuStrip1.Items.Add(replaceMenuItem );
-                    replaceMenuItem.Click += copy2MenuItem_Click;
-                    //Отправка письма
-                    ToolStripMenuItem sendMessage = new ToolStripMenuItem("Отправить");
-                    contextMenuStrip1.Items.Add(sendMessage);
-                    sendMessage.Click += sendMessage_Click;
+                    return;
+                }
+                currentlySelectedItemName = listView1.Items[listView1.SelectedIndices[0]].Text;
+                try
+                {
+                    FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
+                    if (!((fileAttr & FileAttributes.Directory) == FileAttributes.Directory))
+                    {
+                        ToolStripMenuItem replaceMenuItem = new ToolStripMenuItem("Копировать");
+                        contextMenuStrip1.Items.Add(replaceMenuItem);
+                        replaceMenuItem.Click += copy2MenuItem_Click;
+                        //Отправка письма
+                        ToolStripMenuItem sendMessage = new ToolStripMenuItem("Отправить");
+                        contextMenuStrip1.Items.Add(sendMessage);
+                        sendMessage.Click += sendMessage_Click;
+                        ToolStripMenuItem printDoc = new ToolStripMenuItem("Печать");
+                        contextMenuStrip1.Items.Add(printDoc);
+                        printDoc.Click += printDoc_Click;
+                    }
+                    //Если директория
+                    else
+                    {
+                        ToolStripMenuItem archiveMenuItem = new ToolStripMenuItem("Создать архив");
+                        contextMenuStrip1.Items.Add(archiveMenuItem);
+                        archiveMenuItem.Click += archiveMenuItem_Click;
+                    }
+                }
+                catch (FileNotFoundException exNotFound)
+                {
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                    this.Refresh();
+                    MessageBox.Show(
+                    exNotFound.Message,
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                    //Отображаем форму на переднем плане
+                    this.TopMost = true;
+                    loadFilesAndDirectories(listView1, filePath);
+                    loadFilesAndDirectories(listView2, filePath2);
+                    return;
                 }
                 ToolStripMenuItem copyMenuItem = new ToolStripMenuItem("Вырезать");
                 ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("Удалить");
@@ -675,17 +801,52 @@ namespace sCommander
             //Создаем контекстное меню(если вызов относится к выбранному элементу)
             if (e.Button == MouseButtons.Right && listView2.SelectedItems.Count != 0)
             {
-                currentlySelectedItemName = listView2.Items[listView2.SelectedIndices[0]].Text;
-                FileAttributes fileAttr = File.GetAttributes(filePath2 + "/" + currentlySelectedItemName);
-                if (!((fileAttr & FileAttributes.Directory) == FileAttributes.Directory))
+                //Если клик по кнопке "назад"
+                if (listView2.Items[listView2.SelectedIndices[0]].Text == "")
                 {
-                    ToolStripMenuItem replaceMenuItem = new ToolStripMenuItem("Копировать");
-                    contextMenuStrip1.Items.Add(replaceMenuItem);
-                    replaceMenuItem.Click += copy2MenuItem_Click;
-                    //Отправка письма
-                    ToolStripMenuItem sendMessage = new ToolStripMenuItem("Отправить");
-                    contextMenuStrip1.Items.Add(sendMessage);
-                    sendMessage.Click += sendMessage_Click;
+                    return;
+                }
+                currentlySelectedItemName = listView2.Items[listView2.SelectedIndices[0]].Text;
+                try
+                {
+                    FileAttributes fileAttr = File.GetAttributes(filePath2 + "/" + currentlySelectedItemName);
+                    if (!((fileAttr & FileAttributes.Directory) == FileAttributes.Directory))
+                    {
+                        ToolStripMenuItem replaceMenuItem = new ToolStripMenuItem("Копировать");
+                        contextMenuStrip1.Items.Add(replaceMenuItem);
+                        replaceMenuItem.Click += copy2MenuItem_Click;
+                        //Отправка письма
+                        ToolStripMenuItem sendMessage = new ToolStripMenuItem("Отправить");
+                        contextMenuStrip1.Items.Add(sendMessage);
+                        sendMessage.Click += sendMessage_Click;
+                        ToolStripMenuItem printDoc = new ToolStripMenuItem("Печать");
+                        contextMenuStrip1.Items.Add(printDoc);
+                        printDoc.Click += printDoc_Click;
+                    }
+                    //Если директория
+                    else
+                    {
+                        ToolStripMenuItem archiveMenuItem = new ToolStripMenuItem("Создать архив");
+                        contextMenuStrip1.Items.Add(archiveMenuItem);
+                        archiveMenuItem.Click += archiveMenuItem_Click;
+                    }
+                }
+                catch (FileNotFoundException exNotFound)
+                {
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                    this.Refresh();
+                    MessageBox.Show(
+                    exNotFound.Message,
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                    //Отображаем форму на переднем плане
+                    this.TopMost = true;
+                    loadFilesAndDirectories(listView1, filePath);
+                    loadFilesAndDirectories(listView2, filePath2);
+                    return;
                 }
                 ToolStripMenuItem copyMenuItem = new ToolStripMenuItem("Вырезать");
                 ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("Удалить");
@@ -708,6 +869,97 @@ namespace sCommander
                 contextMenuStrip1.Show(MousePosition, ToolStripDropDownDirection.Right);
             }
         }
+        //-----------------------------------------------------------------------------------------------------------------------
+        //                                                      Архивация
+        void archiveMenuItem_Click(object sender, EventArgs e)
+        {
+            string archivePath;
+            if (listView1.ContainsFocus == true)
+            {
+                archivePath = filePath + "/" + listView1.Items[listView1.SelectedIndices[0]].Text;
+            }
+            else 
+            {
+                archivePath = filePath2 + "/" + listView2.Items[listView2.SelectedIndices[0]].Text;
+            }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Zip files (*.zip)|*.zip";
+            if (archivePath != "" && sfd.ShowDialog() == DialogResult.OK)
+            {
+                ZipFile zf = new ZipFile(sfd.FileName);
+                zf.AddDirectory(archivePath);
+                zf.Save();
+                MessageBox.Show("Архивация прошла успешно.", "Выполнено");
+            }
+            loadFilesAndDirectories(listView1, filePath);
+        }
+        //-----------------------------------------------------------------------------------------------------------------------
+        //                                               ПЕЧАТЬ
+        void printDoc_Click(object sender, EventArgs e)
+        {
+            ReadFile();
+            printDocument1.Print();
+        }
+        void PrintPageHandler(object sender, PrintPageEventArgs e)
+        {
+            //Замените на e.Graphics.DrawImage или любую другую логику
+            e.Graphics.DrawString("Привет", new Font("Arial", 14), Brushes.Black, 0, 0);
+        } 
+        private void ReadFile()
+        {
+            string docName = ""; ;
+            if (listView1.ContainsFocus == true)
+            {
+                docName = filePath + "/" + listView1.Items[listView1.SelectedIndices[0]].Text;
+            }
+            else if (listView2.ContainsFocus == true)
+            {
+                docName = filePath2 + "/" + listView2.Items[listView2.SelectedIndices[0]].Text;
+            }
+            if(docName == "")
+            {
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                this.Refresh();
+                MessageBox.Show(
+                   "Нет файла",
+                   "Сообщение",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Information,
+                   MessageBoxDefaultButton.Button1,
+                   MessageBoxOptions.DefaultDesktopOnly);
+                //Отображаем форму на переднем плане
+                this.TopMost = true;
+                return;
+            }
+            printDocument1.DocumentName = docName;
+            using (FileStream stream = new FileStream(docName, FileMode.Open))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                stringToPrint = reader.ReadToEnd();
+            }
+        }
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            int charactersOnPage = 0;
+            int linesPerPage;
+
+            //Устанавливает значение charactersOnPage равным количеству символов
+            //из stringToPrint, который будет помещаться в пределах границ страницы
+            e.Graphics.MeasureString(stringToPrint, this.Font,
+            e.MarginBounds.Size, StringFormat.GenericTypographic,
+            out charactersOnPage, out linesPerPage);
+
+            // Строки помещаются в границы страницы
+            e.Graphics.DrawString(stringToPrint, this.Font, Brushes.Black,
+            e.MarginBounds, StringFormat.GenericTypographic);
+
+            //Удаление позиции строки, которая напечатана
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+            // Проверка, есть ли еще страницы
+            e.HasMorePages = (stringToPrint.Length > 0);
+        }
+//-----------------------------------------------------------------------------------------------------------------------
 
         // Удалить файл или директорию
         void deleteMenuItem_Click(object sender, EventArgs e)
@@ -817,7 +1069,7 @@ namespace sCommander
                 }
                 catch(Exception ex)
                 {
-                    panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                     this.Refresh();
                     MessageBox.Show(
                     ex.Message,
@@ -869,7 +1121,7 @@ namespace sCommander
                 }
                 catch(Exception ex)
                 {
-                    panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                    panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                     this.Refresh();
                     MessageBox.Show(
                     ex.Message,
@@ -925,7 +1177,7 @@ namespace sCommander
             }
             catch (UnauthorizedAccessException)
             {
-                panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                 this.Refresh();
                 MessageBox.Show(
                 "Путь недоступен для перемещения",
@@ -939,7 +1191,7 @@ namespace sCommander
             }
             catch (Exception ex)
             {
-                panel5.BackColor = panel1.BackColor = panel2.BackColor = Color.LightPink;
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
                 this.Refresh();
                 MessageBox.Show(
                 ex.Message,
@@ -999,6 +1251,7 @@ namespace sCommander
             //Смена цвета панелей после ошибки
             panel1.BackColor = panel2.BackColor = Color.CornflowerBlue;
             panel5.BackColor = Color.LightSteelBlue;
+            labelTime.BackColor = Color.LightSteelBlue;
         }
 
         private void listView1_MouseDown(object sender, MouseEventArgs e)
@@ -1008,6 +1261,7 @@ namespace sCommander
             //Смена цвета панелей после ошибки
             panel1.BackColor = panel2.BackColor = Color.CornflowerBlue;
             panel5.BackColor = Color.LightSteelBlue;
+            labelTime.BackColor = Color.LightSteelBlue;
         }
 //---------------------------------------------------------------------------------------------------------------------------
 //                                                      ВИД ТАБЛИЦЫ ЭЛЕМЕНТОВ
@@ -1059,13 +1313,7 @@ namespace sCommander
             detailsToolStripMenuItem.Checked = false;
             listToolStripMenuItem.Checked = false;
         }
-        //--------------------------------------------------------------------------------------------------------------------------
-        //Смена цвета панелей после ошибки
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
-        {
-            panel1.BackColor = panel2.BackColor = Color.CornflowerBlue;
-            panel5.BackColor = Color.LightSteelBlue;
-        }
+//--------------------------------------------------------------------------------------------------------------------------
         //Отображение окна формы(по умолчанию)
         void notifyIcon1_Click(object sender, EventArgs e)
         {
@@ -1076,6 +1324,11 @@ namespace sCommander
         {
             loadFilesAndDirectories(listView1, filePath);
             loadFilesAndDirectories(listView2, filePath2);
+        }
+        //Обновление времени
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelTime.Text = Convert.ToString(DateTime.Now);
         }
     }
 }
