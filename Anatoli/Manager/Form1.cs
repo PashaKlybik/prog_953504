@@ -118,6 +118,7 @@ namespace sCommander
                                 continue;
                             }
                             list.Items.Add(dirs[i].Name, 0);
+                            list.Items[list.Items.Count - 1].ForeColor = Color.MediumBlue;
                             list.Items[index].SubItems.Add("");
                             list.Items[index].SubItems.Add("");
                             list.Items[index].SubItems.Add("");
@@ -127,6 +128,7 @@ namespace sCommander
                         else
                         {
                             list.Items.Add(dirs[i].Name, 0);
+                            list.Items[list.Items.Count - 1].ForeColor = Color.MediumBlue;
                             list.Items[index].SubItems.Add("");
                             list.Items[index].SubItems.Add("");
                             list.Items[index].SubItems.Add("");
@@ -152,38 +154,47 @@ namespace sCommander
                             case ".MP3":
                             case ".MP2":
                                 list.Items.Add(files[i].Name, 5);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.MediumOrchid;
                                 break;
                             case ".EXE":
                             case ".COM":
                                 list.Items.Add(files[i].Name, 3);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.DarkRed;
                                 break;
                             case ".MP4":
                             case ".MKV":
                             case ".AVI":
                                 list.Items.Add(files[i].Name, 7);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.DeepSkyBlue;
                                 break;
                             case ".PDF":
                                 list.Items.Add(files[i].Name, 6);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.DeepPink;
                                 break;
                             case ".DOC":
                             case "DOCX":
                                 list.Items.Add(files[i].Name, 2);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.Brown;
                                 break;
                             case ".ZIP":
                             case ".RAR":
                             case ".7ZIP":
                                 list.Items.Add(files[i].Name, 10);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.SlateBlue;
                                 break;
                             case ".TXT":
                                 list.Items.Add(files[i].Name, 8);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.DarkGreen;
                                 break;
                             case ".PNG":
                             case ".JPG":
                             case ".JPEG":
                                 list.Items.Add(files[i].Name, 4);
+                                list.Items[list.Items.Count - 1].ForeColor = Color.Crimson;
                                 break;
                             default:
                                 list.Items.Add(files[i].Name, 1);
+                                list.Items[list.Items.Count - 2].ForeColor = Color.OliveDrab;
                                 break;                       
                         }
                         list.Items[index].SubItems.Add("");
@@ -746,6 +757,14 @@ namespace sCommander
                         ToolStripMenuItem printDoc = new ToolStripMenuItem("Печать");
                         contextMenuStrip1.Items.Add(printDoc);
                         printDoc.Click += printDoc_Click;
+                        //Проверяем, архив ли это
+                        FileInfo file = new FileInfo(filePath + "/" + currentlySelectedItemName);
+                        if(file.Extension.ToUpper() == ".ZIP")
+                        {
+                            ToolStripMenuItem unarchivateMenuItem = new ToolStripMenuItem("Извлечь архив");
+                            contextMenuStrip1.Items.Add(unarchivateMenuItem);
+                            unarchivateMenuItem.Click += unarchivateMenuItem_Click;
+                        }
                     }
                     //Если директория
                     else
@@ -822,6 +841,14 @@ namespace sCommander
                         ToolStripMenuItem printDoc = new ToolStripMenuItem("Печать");
                         contextMenuStrip1.Items.Add(printDoc);
                         printDoc.Click += printDoc_Click;
+                        //Проверяем, архив ли это
+                        FileInfo file = new FileInfo(filePath + "/" + currentlySelectedItemName);
+                        if (file.Extension.ToUpper() == ".ZIP")
+                        {
+                            ToolStripMenuItem unarchivateMenuItem = new ToolStripMenuItem("Извлечь архив");
+                            contextMenuStrip1.Items.Add(unarchivateMenuItem);
+                            unarchivateMenuItem.Click += unarchivateMenuItem_Click;
+                        }
                     }
                     //Если директория
                     else
@@ -870,7 +897,7 @@ namespace sCommander
             }
         }
         //-----------------------------------------------------------------------------------------------------------------------
-        //                                                      Архивация
+        //                                                      АРХИВАЦИЯ
         void archiveMenuItem_Click(object sender, EventArgs e)
         {
             string archivePath;
@@ -892,6 +919,34 @@ namespace sCommander
                 MessageBox.Show("Архивация прошла успешно.", "Выполнено");
             }
             loadFilesAndDirectories(listView1, filePath);
+        }
+        //-----------------------------------------------------------------------------------------------------------------------
+        //                                               РАЗАРХИВАЦИЯ
+        void unarchivateMenuItem_Click(object sender, EventArgs e)
+        {
+            String sourcePath, destinationPath = "";
+            if(listView1.ContainsFocus == true)
+            {
+                //Путь откуда
+                sourcePath = filePath + "/" + listView1.Items[listView1.SelectedIndices[0]].Text;
+            }
+            else
+            {
+                //Путь откуда
+                sourcePath = filePath2 + "/" + listView2.Items[listView2.SelectedIndices[0]].Text;
+            }
+            //Диалог для выбора папки-места назначения
+            FolderBrowserDialog bd = new FolderBrowserDialog();
+            if (bd.ShowDialog() == DialogResult.OK)
+            {
+                 destinationPath = bd.SelectedPath;
+            }
+            //Конструкция using с освобождением zip по её завершению
+            using (ZipFile zip = ZipFile.Read(sourcePath))
+            {
+                zip.ExtractAll(destinationPath, ExtractExistingFileAction.DoNotOverwrite);
+                MessageBox.Show("Извлечение прошло успешно.", "Выполнено");
+            }
         }
         //-----------------------------------------------------------------------------------------------------------------------
         //                                               ПЕЧАТЬ
@@ -1005,7 +1060,8 @@ namespace sCommander
            
             contextMenuStrip1.Items.Clear();            //Очищаем элементы контекстного меню
         }
-        // КОПИРОВАНИЕ ДИРЕКТОРИЙ И ПАПОК
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//                                             КОПИРОВАНИЕ ДИРЕКТОРИЙ И ПАПОК
         void copyMenuItem_Click(object sender, EventArgs e)
         {
             //Если фокус на 1 ЛВ, то запоимнаем путь, из которого копируем 
@@ -1040,7 +1096,8 @@ namespace sCommander
                 }
             }
         }
-        //Вставка из буфера(OldPath)
+//------------------------------------------------------------------------------------------------------------------------------
+ //                                      Вставка из буфера(OldPath)
         void insertMenuItem_Click(object sender, EventArgs e)
         {
             //Если вставляем директорию
@@ -1208,9 +1265,10 @@ namespace sCommander
             loadFilesAndDirectories(listView1, filePath);
             loadFilesAndDirectories(listView2, filePath2);
         }
+//---------------------------------------------------------------------------------------------------------------------------------
+//                                                          Отправка письма
         void sendMessage_Click(object sender, EventArgs e)
         {
-
             DialogResult result =  MessageBox.Show(
             "Отправить письмо по адресу: " + toolStripTextBox1.Text + " ?",
             "Сообщение",
@@ -1220,27 +1278,45 @@ namespace sCommander
             MessageBoxOptions.DefaultDesktopOnly);
             //Отображаем форму на переднем плане
             this.TopMost = true;
-            if (result == DialogResult.Yes)
+            try
             {
-                // отправитель - устанавливаем адрес и отображаемое в письме имя
-                MailAddress from = new MailAddress(toolStripTextBox2.Text, "sCommander");
-                // кому отправляем
-                MailAddress to = new MailAddress(toolStripTextBox1.Text);
-                // создаем объект сообщения
-                MailMessage m = new MailMessage(from, to);
-                m.Attachments.Add(new Attachment(filePath + "/" + listView1.Items[listView1.SelectedIndices[0]].Text));
-                // тема письма
-                m.Subject = "Тест";
-                // текст письма
-                m.Body = "Привет, это тебе:\n";
-                // письмо представляет код html
-                m.IsBodyHtml = true;
-                // адрес smtp-сервера и порт, с которого будем отправлять письмо
-                SmtpClient smtp = new SmtpClient(toolStripTextBox4.Text, Convert.ToInt32(toolStripTextBox5.Text));
-                // логин и пароль
-                smtp.Credentials = new NetworkCredential(toolStripTextBox2.Text, toolStripTextBox3.Text);
-                smtp.EnableSsl = true;
-                smtp.Send(m);
+                if (result == DialogResult.Yes)
+                {
+                    // отправитель - устанавливаем адрес и отображаемое в письме имя
+                    MailAddress from = new MailAddress(toolStripTextBox2.Text, "sCommander");
+                    // кому отправляем
+                    MailAddress to = new MailAddress(toolStripTextBox1.Text);
+                    // создаем объект сообщения
+                    MailMessage m = new MailMessage(from, to);
+                    m.Attachments.Add(new Attachment(filePath + "/" + listView1.Items[listView1.SelectedIndices[0]].Text));
+                    // тема письма
+                    m.Subject = "Тест";
+                    // текст письма
+                    m.Body = "Привет, это тебе:\n";
+                    // письмо представляет код html
+                    m.IsBodyHtml = true;
+                    // адрес smtp-сервера и порт, с которого будем отправлять письмо
+                    SmtpClient smtp = new SmtpClient(toolStripTextBox4.Text, Convert.ToInt32(toolStripTextBox5.Text));
+                    // логин и пароль
+                    smtp.Credentials = new NetworkCredential(toolStripTextBox2.Text, toolStripTextBox3.Text);
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+                    MessageBox.Show("Письмо отправлено.", "Выполнено");
+                }
+            }
+            catch(Exception sendException)
+            {
+                panel5.BackColor = panel1.BackColor = panel2.BackColor = labelTime.BackColor = Color.LightPink;
+                this.Refresh();
+                MessageBox.Show(
+                sendException.Message,
+                "Ошибка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
+                //Отображаем форму на переднем плане
+                this.TopMost = true;
             }
         }
 //----------------------------------------------------------------------------------------------------------
