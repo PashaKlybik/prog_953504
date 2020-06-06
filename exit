@@ -1,0 +1,321 @@
+[33mcommit b3e9847e258bf9195aefebd49d55757d63510cfa[m[33m ([m[1;36mHEAD -> [m[1;32mlab6[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: UnstoppableGuy <65165822+UnstoppableGuy@users.noreply.github.com>
+Date:   Sat May 23 18:33:26 2020 +0300
+
+    fix (#78)
+    
+    Co-authored-by: Pavel Takunov <pavel.takynov@gmail.com>
+
+[33mcommit ac2150c6d4a149c4e60a5636bb6c5a087a6d6904[m
+Author: dimasbort <61710384+dimasbort@users.noreply.github.com>
+Date:   Sat May 23 17:27:19 2020 +0300
+
+    itogo (#77)
+
+[33mcommit 79f8b5f4192e43ede13fcb19f04be910ba35b362[m
+Author: MaximSkochinsky <62739818+MaximSkochinsky@users.noreply.github.com>
+Date:   Sat May 23 16:58:35 2020 +0300
+
+    LAB 7(var 15) UPDATED (#58)
+    
+    * LAB6 5.2(24)
+    
+    * LAB 7 ADDED
+    
+    * LB7(var 15) added
+    
+    * Delete LB7.cpp
+    
+    * LAB 7(var 15) updated
+    
+    * UPDATE LB7(15)
+    
+    * Update lb7(15) final
+
+[33mcommit 7ae2005c5e61fd2413f0ae729923d2474456c33f[m
+Author: Dmitriy Karpovich <53619151+dmkrch@users.noreply.github.com>
+Date:   Sat May 23 16:57:18 2020 +0300
+
+    lab 5,6,7  (#73)
+    
+    * added 5, 6, 7 labs
+    
+    * 5 lab change
+    
+    * tried to fix comment
+    
+    * fixed comment
+    
+    * memory free
+
+[33mcommit 560edcae17fe83691b8892dc2e313037bca0c0aa[m
+Author: Irina996 <62200435+Irina996@users.noreply.github.com>
+Date:   Sat May 23 16:28:26 2020 +0300
+
+    Klimovich lab6 variant9 (#75)
+    
+    * Create Klimovich Irina
+    
+    * Added 5 lab
+    
+    * Update lab5.cpp
+    
+    * Add 6 lab
+    
+    * Added 6 lab
+    
+    * add
+
+[33mcommit a4599d2480fbfba04c069821e09cca5c6ae7eb96[m
+Author: UnstoppableGuy <65165822+UnstoppableGuy@users.noreply.github.com>
+Date:   Sat May 23 15:57:57 2020 +0300
+
+    lab4 (#53)
+    
+    Co-authored-by: Pavel Takunov <pavel.takynov@gmail.com>
+
+[33mcommit ef86c16c017f4c0a56a10b24a9009c520b4702c2[m
+Author: boss078 <36530564+boss078@users.noreply.github.com>
+Date:   Sat May 23 15:47:27 2020 +0300
+
+    Completed 7 labs (#72)
+
+[33mcommit e0fd447d470de35f3a8613648cc844d3f90b1079[m
+Author: WinterInside1 <61598111+WinterInside1@users.noreply.github.com>
+Date:   Sat May 23 05:44:55 2020 -0700
+
+    lab_7_30v (#64)
+
+[33mcommit 2abcd171b6cb7856fbe5524e63af67bd904a8052[m
+Author: Виктор <successfulvictoragb@gmail.com>
+Date:   Sat May 23 15:26:57 2020 +0300
+
+    999Victor_Agibaylov Lab7 (#68)
+    
+    * поймал сегодня раков
+    
+    * опять поймал раков
+    
+    * Опять поймал раков
+    
+    * опять поймал раков
+
+[33mcommit 7657963203d3b48ac9d15e4a6014285b94cbc726[m
+Author: Bogdan-101 <54862850+Bogdan-101@users.noreply.github.com>
+Date:   Sat May 23 15:10:58 2020 +0300
+
+    Added 7 lab (#66)
+    
+    * Initial commit
+    
+    * Added 6 lab
+    
+    * Added modified 6 lab, added notes for code
+    
+    * Added 7 lab
+    
+    * Update HotelsMain.cpp
+    
+    * Fixed stuff
+    
+    * Kostyl'
+    
+    * Update hotels.txt
+
+[33mcommit b076e709b3687fe18df47b0ff0a0f2af28c74000[m
+Author: Irina996 <62200435+Irina996@users.noreply.github.com>
+Date:   Sun May 10 20:30:30 2020 +0300
+
+    Klimovich Irina lab 5 variant 10 (#51)
+    
+    * Create Klimovich Irina
+    
+    * Added 5 lab
+    
+    * Update lab5.cpp
+
+[33mcommit 00540d476bc1ac3dd424da0a4806eac6537c80ab[m
+Author: DmitryMakarich <63462326+DmitryMakarich@users.noreply.github.com>
+Date:   Sun May 10 20:29:24 2020 +0300
+
+    Add 5(12) lab (#52)
+    
+    * Add 4 lab
+    
+    * 5(12) correct
+
+[33mcommit 1d65e9b4b144022e8ddf8e1dadecbdf30b29c73f[m
+Author: DmitryMakarich <63462326+DmitryMakarich@users.noreply.github.com>
+Date:   Sun May 10 20:27:42 2020 +0300
+
+    Add 4 lab (#50)
+
+[33mcommit 230b03f5cc82bf34618677b67a9984ad3afc1e4f[m
+Author: Bogdan-101 <54862850+Bogdan-101@users.noreply.github.com>
+Date:   Sun May 10 12:09:06 2020 +0300
+
+    Кармызов Богдан 6 лаба (#49)
+    
+    * Initial commit
+    
+    * Added 6 lab
+    
+    * Added modified 6 lab, added notes for code
+
+[33mcommit c2bbfe59426a3860aecb5da3caa5b2d5c317a011[m
+Author: MaximSkochinsky <62739818+MaximSkochinsky@users.noreply.github.com>
+Date:   Sun May 10 12:04:43 2020 +0300
+
+    LAB6 5.2(24) (#37)
+
+[33mcommit 574208215e92c70bbd07ba0cb69d4ea8641bbf20[m
+Author: Divaon <56230474+Divaon@users.noreply.github.com>
+Date:   Sun May 10 12:03:36 2020 +0300
+
+    Labs 2,3,4,5. (#44)
+    
+    * Add files via upload
+    
+    * Add files via upload
+    
+    * Delete LAB2.2.1_28.cpp
+    
+    * Delete Lab2.2.2_6.cpp
+    
+    * Delete Lab3.3.2_6.cpp
+    
+    * Add files via upload
+    
+    * Add files via upload
+    
+    * Delete Lab2.2.2_6.cpp
+    
+    * Delete LAB2.2.1_28.cpp
+    
+    * Delete Lab2.2.2_6.cpp
+    
+    * Delete Lab3.3.2_6.cpp
+    
+    * Delete Dates.txt
+    
+    * Delete LabPr4_1_30.cpp
+    
+    * Delete LabPr4_2_30.cpp
+    
+    * Add files via upload
+
+[33mcommit 49107ff9b0f5b258004c33fabd504c28a20fefb3[m
+Author: Darya Shchedrova <59283447+dariwes@users.noreply.github.com>
+Date:   Sun May 10 11:59:43 2020 +0300
+
+    lab 7 done (#47)
+
+[33mcommit 7248dde6891d03a1cdcd5cfe4c8b0c147af0301a[m
+Author: Darya Shchedrova <59283447+dariwes@users.noreply.github.com>
+Date:   Sun May 10 11:57:13 2020 +0300
+
+    lab 6 done (#43)
+
+[33mcommit f1c463427b6b186a9bf56791266ac1791ed4c2c9[m
+Author: Darya Shchedrova <59283447+dariwes@users.noreply.github.com>
+Date:   Sun May 10 11:55:34 2020 +0300
+
+    lab 5 done (#42)
+
+[33mcommit aa5be3c0c38783b0d573ae88162e264281df974b[m
+Author: Tolya953504 <56039673+Tolya953504@users.noreply.github.com>
+Date:   Sun May 10 11:53:17 2020 +0300
+
+    lab5(20) (#29)
+    
+    * lab5(20)
+    
+    * lab6(4)
+    
+    * labs
+    
+    Co-authored-by: Anatoli <gvhvhv>
+
+[33mcommit 8c14ab5282e3449016cd492f678e3d752bb21dae[m
+Author: AlexYatsyna <61580040+AlexYatsyna@users.noreply.github.com>
+Date:   Sun May 10 11:50:21 2020 +0300
+
+    Add 6 and 7 lab, Aleksandr Yatsyna (#46)
+    
+    Co-authored-by: Alex Yatsyna <95350180@study.bsuir.by>
+
+[33mcommit f012d42e277a0a838e80cdb2532c7b9abe4aa132[m
+Author: Виктор <successfulvictoragb@gmail.com>
+Date:   Sun May 10 11:47:44 2020 +0300
+
+    поймал сегодня раков (#31)
+
+[33mcommit 894a8356667063179b7663ea4422fb6cc88ddc8f[m
+Author: Bogdan-101 <54862850+Bogdan-101@users.noreply.github.com>
+Date:   Sun May 10 11:40:15 2020 +0300
+
+    Initial commit (#40)
+
+[33mcommit 7c522b9d25c06fb51a373d2811f3cff0757ea7e6[m
+Author: Maksim Anikhovskiy <anikhovskiy00@mail.ru>
+Date:   Sun May 10 11:30:02 2020 +0300
+
+    Maksim Anikhovskiy labs (#2)
+    
+    * Maksim Anikhovskiy labs
+    
+    * cleaning directory
+    
+    * lab4-2
+
+[33mcommit e7f814c5229efb25a6b1a34ab4ec52fbfe600898[m
+Author: dominuss-git <60347949+dominuss-git@users.noreply.github.com>
+Date:   Sun May 10 11:15:05 2020 +0300
+
+    Богомаз Кирилл 7лаба(23) (#45)
+
+[33mcommit dac809325c84c7b6bbf98d45174a741a9539bf4b[m
+Author: Pavel <pashaklybik@gmail.com>
+Date:   Tue Apr 14 12:32:47 2020 +0300
+
+    Update README.md
+
+[33mcommit 8e3691796e97d9650a4d649c9eedcd0187eda499[m
+Author: Pavel <pashaklybik@gmail.com>
+Date:   Tue Apr 14 12:31:49 2020 +0300
+
+    Update README.md
+
+[33mcommit 10bf86c58426cdd9db6027caf81e50f7a52d5ab6[m
+Author: Tolya953504 <56039673+Tolya953504@users.noreply.github.com>
+Date:   Fri Mar 27 12:55:21 2020 +0300
+
+    Labs3-4 (#21)
+    
+    Co-authored-by: Anatoli <gvhvhv>
+
+[33mcommit 0a8d9b00a68d9db161fe85172ac97c040d0fa451[m
+Author: sokol-forbes <61580663+sokol-forbes@users.noreply.github.com>
+Date:   Fri Mar 27 12:46:25 2020 +0300
+
+    Labirint (#14)
+
+[33mcommit 9a53554a58ae67e81116a4c69a0f1f7c4a4ec7f2[m
+Merge: af258eb bd2920d
+Author: Pavel <pashaklybik@gmail.com>
+Date:   Fri Mar 27 11:55:25 2020 +0300
+
+    Merge pull request #20 from MaximSkochinsky/master
+    
+    MaximSkochinsky_Lab5(var 16)
+
+[33mcommit bd2920d90f566bae02d8b125629c376720bbde6a[m
+Author: Maxim <m.skochinsky@mail.ru>
+Date:   Fri Mar 27 11:36:48 2020 +0300
+
+    Lab5(var 16)
+
+[33mcommit af258eb7607add4b782d79ed9dd90c7c86fb050f[m
+Merge: c07b43b e1c36d7
+Author: Pavel <pashaklybik@gmail.com>
+Date:   Fri Mar 27 10:53:16 20
