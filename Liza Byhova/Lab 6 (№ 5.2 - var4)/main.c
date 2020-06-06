@@ -1,8 +1,14 @@
+/*В текстовом файле записаны целые числа. Построить бинарное
+дерево поиска, в узлах которого хранятся числа из файла.
+Разработать функцию, определяющую число узлов дерева на
+каждом уровне.*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
 
+/* Структура, описывающая узел дерева */
 typedef struct item
 {
     int data;
@@ -64,15 +70,31 @@ void Number_of_nodes(Item *node, const char *dir, int level, int *n, int *count,
     }
 }
 
+void FreeMemory(Item *node)
+{
+    if (node != NULL)
+    {
+        if(node->left)
+        {
+            FreeMemory(node->left);
+        }
+        if(node->right)
+        {
+            FreeMemory(node->right);
+        }
+        free(node);
+    }
+}
+
 int main()
 {
     char *file_numbers = (char*)malloc(100);
-    Item *root = NULL; 
+    Item *root = NULL; /* корень дерева */
 
     printf("File contents:\n");
 
     FILE *file;
-    file = fopen("В№5.2 - 4.txt", "r");
+    file = fopen("№5.2 - 4.txt", "r");
     if (!file)
     {
         printf("Error");
@@ -81,7 +103,7 @@ int main()
     {
         while (fgets(file_numbers, 100, file) != NULL)
         {
-            AddNode(atoi(file_numbers), &root); 
+            AddNode(atoi(file_numbers), &root); /* и добавляем в дерево */
             printf("%d ", atoi(file_numbers));
         }
     }
@@ -104,6 +126,8 @@ int main()
     {
         printf("\n\nLevel: %d. Number_of_nodes: %d", i, count[i]);
     }
+
+    FreeMemory(root);
     return 0;
 }
 
