@@ -69,7 +69,7 @@ struct tree
 	{
 		if ((*t) == NULL)
 		{
-			tree* st = new tree;
+			tree* st = (tree*)malloc(sizeof(tree*));
 			st->key = x;
 			st->l = st->r = NULL;
 			*t = st;
