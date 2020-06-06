@@ -1,2 +1,0 @@
-C:\Users\user\source\repos\Labs5Progr\Debug\Labs5Progr.exe
-C:\Users\user\source\repos\Labs5Progr\Debug\Labs5Progr.pdb
