@@ -1,0 +1,27 @@
+Filework
+<cstdio>(stdio.h)
+22.02.2012
+C
+The corresponding program copies any type of file. Note that files are opened in binary mode, and feof() is used to check for the end of the file
+$$
+function gets
+<cstdio>(stdio.h)
+12.02.2011
+C
+Reads characters from the standard input (stdin) and stores them as a C string into str until a newline character or the end-of-file is reached.
+The newline character, if found, is not copied into str.
+A terminating null character is automatically appended after the characters copied to str.
+Notice that gets is quite different from fgets: not only gets uses stdin as source, but it does not include the ending newline character in the resulting string and does not allow to specify a maximum size for str (which can lead to buffer overflows).
+$$
+Key logger
+Dll
+29.11.2019
+C#
+Show how to work with dll library from other idl.
+$$
+Fibonaci nums
+<iostream>
+12.05.2014
+C++
+This program show what Fibonaci nums are and how the program works
+$$
