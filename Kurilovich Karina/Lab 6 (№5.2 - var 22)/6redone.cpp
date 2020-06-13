@@ -1,3 +1,4 @@
+﻿
 #include <iostream>
 
 struct tree
@@ -129,7 +130,7 @@ int main()
     free(r);
     free(l);
     DeleteTree(tre);
-    
+
     system("pause");
     return 0;
 }
