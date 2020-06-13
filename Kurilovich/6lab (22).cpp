@@ -85,6 +85,25 @@ void Print(Stack* top) {
     }
 }
 
+void DeleteTree(tree* node)
+{
+    if (node)
+    {
+        DeleteTree(node->l);
+        DeleteTree(node->r);
+        free(node);
+    }
+}
+
+List* DeleteHead(List* root)
+{
+    struct List* temp;
+    temp = root->next;
+    temp->prev = NULL;
+    free(root);
+    return(temp);
+}
+
 
 int main()
 {
@@ -108,6 +127,9 @@ int main()
     Print(r);
     printf("\n");
     Print(l);
+    free(r);
+    free(l);
+    DeleteTree(tre);
 
     system("pause");
     return 0;
