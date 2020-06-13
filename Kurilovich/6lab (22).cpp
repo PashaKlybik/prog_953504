@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 
 struct tree
 {
@@ -7,34 +7,34 @@ struct tree
     tree* r = nullptr;
 };
 
-struct Stack
+struct List
 {
     int num;
-    Stack* next = nullptr;
-    Stack* prev = nullptr;
+    List* next = nullptr;
+    List* prev = nullptr;
 };
 
-void Add(Stack **top, int n)
+void Add(List** top, int n)
 {
-    Stack* newStack = new Stack();
-    newStack->num = n;
-    newStack->prev = nullptr;
-    newStack->next = nullptr;
-    Stack *run = *top;
+    List* newList = new List();
+    newList->num = n;
+    newList->prev = nullptr;
+    newList->next = nullptr;
+    List* run = *top;
 
     if (run == nullptr)
     {
-        *top = newStack;
+        *top = newList;
     }
     else
     {
-        newStack->next = *top;
-        run->prev = newStack;
-        *top = newStack;
+        newList->next = *top;
+        run->prev = newList;
+        *top = newList;
     }
 }
 
-void In_Order(tree* tre, Stack **r, Stack **l) {
+void In_Order(tree* tre, List** r, List** l) {
     if (tre == nullptr) { return; }
     if (tre->inf % 2 == 0) {
         Add(&*r, tre->inf);
@@ -67,7 +67,7 @@ void Add(tree** tre, int value) {
                 root = root->r;
             }
             else {
-                if(root->l == nullptr) {
+                if (root->l == nullptr) {
                     root->l = branch;
                     return;
                 }
@@ -75,10 +75,10 @@ void Add(tree** tre, int value) {
             }
         }
     }
-    
+
 }
 
-void Print(Stack* top) {
+void Print(List* top) {
     while (top != nullptr) {
         printf("   %d", top->num);
         top = top->next;
@@ -104,12 +104,11 @@ List* DeleteHead(List* root)
     return(temp);
 }
 
-
 int main()
 {
     tree* tre = nullptr;
-    Stack* r = nullptr;
-    Stack* l = nullptr;
+    List* r = nullptr;
+    List* l = nullptr;
 
     Add(&tre, 5);
     Add(&tre, 1);
@@ -130,7 +129,7 @@ int main()
     free(r);
     free(l);
     DeleteTree(tre);
-
+    
     system("pause");
     return 0;
 }
