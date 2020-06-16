@@ -1,0 +1,42 @@
+Student : Kozlov Vladimir Sergeevich
+Faculty : The faculty of computer engineering
+Course : 3
+Group : 1
+Violations : Smoking on the territory of the hostel, Fight, Drinking alcohol on the territory of the hostel
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Klimovich Irina Arkadyevna
+Faculty : Faculty of radio engineering and electronics
+Course : 1
+Group : 1
+Violations : not have
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Petrov Ivan Yurievich
+Faculty : Faculty of radio engineering and electronics
+Course : 2
+Group : 5
+Violations : Fight
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Bekernik Veronika Vladimirovna
+Faculty : Faculty of computer systems and networks
+Course : 1
+Group : 4
+Violations : Making noise at night, Drinking alcohol on the territory of the hostel
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Karmysov Bogdan Sergeevich
+Faculty : Faculty of computer systems and networks
+Course : 1
+Group : 4
+Violations : Smoking on the territory of the hostel
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Ivanov Nikolay Alexsandrovich
+Faculty : The faculty of computer engineering
+Course : 2
+Group : 3
+Violations : not have
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Student : Zaytsev Denis Borisovich
+Faculty : The faculty of computer engineering
+Course : 3
+Group : 2
+Violations : Smoking on the territory of the hostel, Fight, Making noise at night, Drinking alcohol in the room
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

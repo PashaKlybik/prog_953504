@@ -1,0 +1,28 @@
+Manageress : Denisova Svetlana Mikhailovna
+Room : 103
+Phone number : (44)456-21-78
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Passport officer : Azarionok Svetlana Arkadevna
+Room : 102
+Phone number : (29)741-23-12
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Psychologist : Zhidkov Igor Alexandrovich
+Room : 111
+Phone number : (29)986-52-45
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Educator : Dennisic Irina Valentinovna
+Room : 105
+Phone number : (29)324-75-12
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Commandant : Petrov Pavel Denisovich
+Room : 115
+Phone number : (44)124-75-65
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Floor Manager : Golubeva Tatyana Aleksandrovna
+Room : 220
+Phone number : (44)963-41-85
+- - - - - - - - - - - - - - - - - - - - - - - - 
+Floor Manager : Potapov Alexander Nikolaevich
+Room : 440
+Phone number : (44)963-41-85
+- - - - - - - - - - - - - - - - - - - - - - - - 
